@@ -10,11 +10,19 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var loginRegisterToggle: UISegmentedControl!
+
+    @IBOutlet weak var loginFormView: UIView!
+    @IBOutlet weak var registerFormview: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
 
+    @IBAction func toggleLogin(_ sender: Any) {
+
+    }
+    
 }
 
