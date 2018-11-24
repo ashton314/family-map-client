@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0427A921A9C89B00CF5153 /* MapViewController.swift */; };
+		2D0427AC21A9CE9800CF5153 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0427AB21A9CE9800CF5153 /* PersonViewController.swift */; };
 		2D8CAF2A21A88D4B0097F032 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF2921A88D4B0097F032 /* AppDelegate.swift */; };
 		2D8CAF2C21A88D4B0097F032 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF2B21A88D4B0097F032 /* ViewController.swift */; };
 		2D8CAF2F21A88D4B0097F032 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8CAF2D21A88D4B0097F032 /* Main.storyboard */; };
@@ -14,7 +16,6 @@
 		2D8CAF3421A88D4E0097F032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8CAF3221A88D4E0097F032 /* LaunchScreen.storyboard */; };
 		2D8CAF3F21A88D4E0097F032 /* Family_Map_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF3E21A88D4E0097F032 /* Family_Map_ClientTests.swift */; };
 		2D8CAF4A21A88D4E0097F032 /* Family_Map_ClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF4921A88D4E0097F032 /* Family_Map_ClientUITests.swift */; };
-		2D8CAF5821A8E8DD0097F032 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF5721A8E8DD0097F032 /* MapController.swift */; };
 		2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D0427A921A9C89B00CF5153 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		2D0427AB21A9CE9800CF5153 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 		2D8CAF2621A88D4B0097F032 /* Family Map Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Family Map Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8CAF2921A88D4B0097F032 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D8CAF2B21A88D4B0097F032 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,7 +52,6 @@
 		2D8CAF4521A88D4E0097F032 /* Family Map ClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Family Map ClientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8CAF4921A88D4E0097F032 /* Family_Map_ClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family_Map_ClientUITests.swift; sourceTree = "<group>"; };
 		2D8CAF4B21A88D4E0097F032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D8CAF5721A8E8DD0097F032 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
 		2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProxy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -134,7 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				2D8CAF2B21A88D4B0097F032 /* ViewController.swift */,
-				2D8CAF5721A8E8DD0097F032 /* MapController.swift */,
+				2D0427A921A9C89B00CF5153 /* MapViewController.swift */,
+				2D0427AB21A9CE9800CF5153 /* PersonViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -278,10 +281,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D0427AC21A9CE9800CF5153 /* PersonViewController.swift in Sources */,
 				2D8CAF2C21A88D4B0097F032 /* ViewController.swift in Sources */,
 				2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */,
-				2D8CAF5821A8E8DD0097F032 /* MapController.swift in Sources */,
 				2D8CAF2A21A88D4B0097F032 /* AppDelegate.swift in Sources */,
+				2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

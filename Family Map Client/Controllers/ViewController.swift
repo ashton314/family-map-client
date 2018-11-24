@@ -30,14 +30,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var registerPassword: UITextField!
     @IBOutlet weak var registerHost: UITextField!
     @IBOutlet weak var registerPort: UITextField!
+
+    // Auth Info
+    struct AuthInfo {
+        let authToken: String
+        let rootPersonID: String
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    @IBAction func unwindToLogin(unwindSegue: UIStoryboardSegue) {
-        print("Here I am! Maybe I should delete the auth token...")
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let map = segue.destination as! MapViewController
+
+        guard let data = sender as? AuthInfo else { return }
+
+        map.authToken = data.authToken
+        map.rootPersonID = data.rootPersonID
+        print("prepared for segue: \(data)")
     }
 
     @IBAction func handleLogin(_ sender: Any) {
@@ -89,9 +101,11 @@ class ViewController: UIViewController {
         let callback = { (ok: Bool, message: String) -> Void in
             if ok {
                 print("Ok: \(message)")
-                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Success", message: message, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default))
-                self.present(alert, animated: true, completion: nil)
+//                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Success", message: message, preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+//                self.present(alert, animated: true, completion: nil)
+
+                self.performSegue(withIdentifier: "returnToMapWithAuth", sender: AuthInfo(authToken: "foo", rootPersonID: "bar"))
             }
             else {
                 print("Not OK: \(message)")
