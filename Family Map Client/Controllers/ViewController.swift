@@ -81,8 +81,8 @@ class ViewController: UIViewController {
         }
 
         let sp = ServerProxy(host: info["host"]! ?? "", port: info["port"]! ?? "")
-        
-        let (ok, message) = sp.doLogin(username: info["username"]! ?? "", password: info["password"]! ?? "") { (ok: Bool, message: String) in
+
+        let callback = { (ok: Bool, message: String) -> Void in
             if ok {
                 print("Ok: \(message)")
                 let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Success", message: message, preferredStyle: .alert)
@@ -96,6 +96,16 @@ class ViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
+        
+        guard let username = info["username"] ?? "", let password = info["password"] ?? "",
+              let firstname = info["firstname"] ?? "", let lastname = info["lastname"] ?? "",
+              let email = info["email"] ?? "", let gender = info["gender"] ?? "" else {
+                return
+        }
+
+        let (ok, message) = wasLogin ? sp.doLogin(username: username, password: password, callback: callback)
+                                     : sp.doRegister(username: username, password: password, email: email,
+                                                     firstname: firstname, lastname: lastname, gender: gender, callback: callback)
 
         if ok {
             print("URL was accepted")

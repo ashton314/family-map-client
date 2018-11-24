@@ -218,9 +218,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNc-lP-57w">
-                                        <rect key="frame" x="137" y="283" width="71" height="35"/>
+                                        <rect key="frame" x="139" y="284" width="67" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Register"/>
                                         <connections>
                                             <action selector="handleRegister:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sco-U3-Nea"/>
