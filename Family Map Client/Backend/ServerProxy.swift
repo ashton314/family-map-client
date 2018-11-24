@@ -22,14 +22,20 @@ class ServerProxy {
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data {
                     let stringified = String(data: data, encoding: .utf8) ?? ""
-                    callback(true, stringified)
+                    DispatchQueue.main.async {
+                        callback(true, stringified)
+                    }
+//                    callback(true, stringified)
                 }
                 else {
                     print("Response: \(response.debugDescription)")
                     let errorMessage = error?.localizedDescription ?? "Unknown error"
                     print("Pretty error: \(errorMessage)")
                     print(error.debugDescription)
-                    callback(false, errorMessage)
+                    DispatchQueue.main.async {
+                        callback(false, errorMessage)
+                    }
+//                    callback(false, errorMessage)
                 }
             }
             task.resume()

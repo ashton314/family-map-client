@@ -85,15 +85,15 @@ class ViewController: UIViewController {
         let (ok, message) = sp.doLogin(username: info["username"]! ?? "", password: info["password"]! ?? "") { (ok: Bool, message: String) in
             if ok {
                 print("Ok: \(message)")
-//                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Success", message: message, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default))
-//                self.present(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Success", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                self.present(alert, animated: true, completion: nil)
             }
             else {
                 print("Not OK: \(message)")
-//                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Error", message: message, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
-//                self.present(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Error", message: message, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                self.present(alert, animated: true, completion: nil)
             }
         }
 
