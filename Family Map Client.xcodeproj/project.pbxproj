@@ -102,13 +102,12 @@
 			isa = PBXGroup;
 			children = (
 				2D8CAF2921A88D4B0097F032 /* AppDelegate.swift */,
-				2D8CAF2B21A88D4B0097F032 /* ViewController.swift */,
+				2D9C5BE421A8ED5400CF93FB /* Controllers */,
 				2D8CAF2D21A88D4B0097F032 /* Main.storyboard */,
 				2D8CAF3021A88D4E0097F032 /* Assets.xcassets */,
 				2D8CAF3221A88D4E0097F032 /* LaunchScreen.storyboard */,
 				2D8CAF3521A88D4E0097F032 /* Info.plist */,
-				2D8CAF5721A8E8DD0097F032 /* MapController.swift */,
-				2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */,
+				2D9C5BE521A8ED6000CF93FB /* Backend */,
 			);
 			path = "Family Map Client";
 			sourceTree = "<group>";
@@ -129,6 +128,23 @@
 				2D8CAF4B21A88D4E0097F032 /* Info.plist */,
 			);
 			path = "Family Map ClientUITests";
+			sourceTree = "<group>";
+		};
+		2D9C5BE421A8ED5400CF93FB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2D8CAF2B21A88D4B0097F032 /* ViewController.swift */,
+				2D8CAF5721A8E8DD0097F032 /* MapController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2D9C5BE521A8ED6000CF93FB /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */,
+			);
+			path = Backend;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
