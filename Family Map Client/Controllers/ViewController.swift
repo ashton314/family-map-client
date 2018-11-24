@@ -36,6 +36,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    @IBAction func unwindToLogin(unwindSegue: UIStoryboardSegue) {
+        print("Here I am! Maybe I should delete the auth token...")
+    }
+
     @IBAction func handleLogin(_ sender: Any) {
         let loginData: [String: String?] = ["username": loginUsername.text,
                                             "password": loginPassword.text,
