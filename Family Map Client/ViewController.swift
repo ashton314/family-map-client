@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var loginFormView: UIView!
     @IBOutlet weak var registerFormview: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,7 +22,17 @@ class ViewController: UIViewController {
 
 
     @IBAction func toggleLogin(_ sender: Any) {
-
+        switch loginRegisterToggle.selectedSegmentIndex {
+        case 0:
+            loginFormView.isHidden = false
+            registerFormview.isHidden = true
+        case 1:
+            loginFormView.isHidden = true
+            registerFormview.isHidden = false
+        default:
+            loginFormView.isHidden = false
+            registerFormview.isHidden = true
+        }
     }
     
 }
