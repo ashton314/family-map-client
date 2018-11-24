@@ -14,6 +14,8 @@
 		2D8CAF3421A88D4E0097F032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8CAF3221A88D4E0097F032 /* LaunchScreen.storyboard */; };
 		2D8CAF3F21A88D4E0097F032 /* Family_Map_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF3E21A88D4E0097F032 /* Family_Map_ClientTests.swift */; };
 		2D8CAF4A21A88D4E0097F032 /* Family_Map_ClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF4921A88D4E0097F032 /* Family_Map_ClientUITests.swift */; };
+		2D8CAF5821A8E8DD0097F032 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF5721A8E8DD0097F032 /* MapController.swift */; };
+		2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		2D8CAF4521A88D4E0097F032 /* Family Map ClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Family Map ClientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D8CAF4921A88D4E0097F032 /* Family_Map_ClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family_Map_ClientUITests.swift; sourceTree = "<group>"; };
 		2D8CAF4B21A88D4E0097F032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D8CAF5721A8E8DD0097F032 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProxy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				2D8CAF3021A88D4E0097F032 /* Assets.xcassets */,
 				2D8CAF3221A88D4E0097F032 /* LaunchScreen.storyboard */,
 				2D8CAF3521A88D4E0097F032 /* Info.plist */,
+				2D8CAF5721A8E8DD0097F032 /* MapController.swift */,
+				2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */,
 			);
 			path = "Family Map Client";
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D8CAF2C21A88D4B0097F032 /* ViewController.swift in Sources */,
+				2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */,
+				2D8CAF5821A8E8DD0097F032 /* MapController.swift in Sources */,
 				2D8CAF2A21A88D4B0097F032 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
