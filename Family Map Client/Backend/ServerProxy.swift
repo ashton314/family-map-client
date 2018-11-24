@@ -17,32 +17,73 @@ class ServerProxy {
         self.port = port
     }
     func doLogin(username: String, password: String, callback: @escaping (Bool, String) -> Void) -> (Bool, String) {
-        if let url = URL(string: "http://\(host):\(port)/user/login") {
-            print("URL: \(url)")
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let data = data {
-                    let stringified = String(data: data, encoding: .utf8) ?? ""
+
+        struct LoginRequest: Codable {
+            let userName: String
+            let password: String
+        }
+
+        let reqData = LoginRequest(userName: username, password: password)
+        guard let jsonPayload = try? JSONEncoder().encode(reqData) else {
+            return (false, "Problem building request data")
+        }
+
+        guard let url = URL(string: "http://\(host):\(port)/user/login") else {
+            return (false, "Couldn't build URL: bad host, port")
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.uploadTask(with: request, from: jsonPayload) { data, response, error in
+            if let error = error {
+                print("Error in upload: \(error)")
+                DispatchQueue.main.async {
+                    callback(false, "Unknown error")
+                }
+                return
+            }
+            guard let response = response as? HTTPURLResponse,
+                (200...499).contains(response.statusCode) else {
                     DispatchQueue.main.async {
-                        callback(true, stringified)
+                        callback(false, "Server error")
                     }
-//                    callback(true, stringified)
+                    return
+            }
+            
+            if (200...299).contains(response.statusCode) {
+                // TODO: parse response body
+                if let data = data,
+                    let dataString = String(data: data, encoding: .utf8) {
+                    print("Got data: \(dataString)")
+                    DispatchQueue.main.async {
+                        callback(true, dataString)
+                    }
                 }
                 else {
-                    print("Response: \(response.debugDescription)")
-                    let errorMessage = error?.localizedDescription ?? "Unknown error"
-                    print("Pretty error: \(errorMessage)")
-                    print(error.debugDescription)
                     DispatchQueue.main.async {
-                        callback(false, errorMessage)
+                        callback(false, "Unknown error")
                     }
-//                    callback(false, errorMessage)
                 }
             }
-            task.resume()
-            return (true, "Good URL")
+            else {
+                if let data = data,
+                    let dataString = String(data: data, encoding: .utf8) {
+                    print("Got data: \(dataString)")
+                    DispatchQueue.main.async {
+                        callback(false, dataString)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        callback(false, "Unknown error")
+                    }
+                }
+
+            }
         }
-        else {
-            return (false, "Bad URL")
-        }
+        task.resume()
+        return (true, "request accepted")
     }
 }
