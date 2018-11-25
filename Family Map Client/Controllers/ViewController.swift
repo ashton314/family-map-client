@@ -105,7 +105,7 @@ class ViewController: UIViewController {
 //                alert.addAction(UIAlertAction(title: "Ok", style: .default))
 //                self.present(alert, animated: true, completion: nil)
 
-                self.performSegue(withIdentifier: "returnToMapWithAuth", sender: AuthInfo(authToken: "foo", rootPersonID: "bar"))
+                self.performSegue(withIdentifier: "authSuccessful", sender: AuthInfo(authToken: "foo", rootPersonID: "bar"))
             }
             else {
                 print("Not OK: \(message)")

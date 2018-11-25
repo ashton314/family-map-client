@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qz2-rY-x00">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9ft-wh-m4t">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Family Map-->
+        <!--Map View Controller-->
         <scene sceneID="BXg-3N-DhV">
             <objects>
                 <viewController id="jUm-O5-wue" customClass="MapViewController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,15 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fs9-tR-q34">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Family Map" id="3IU-90-zes">
-                                        <barButtonItem key="rightBarButtonItem" title="Login" id="35C-M2-XpK"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bcr-VB-xcT">
                                 <rect key="frame" x="0.0" y="64" width="375" height="353"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -36,23 +27,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Go to Person"/>
                                 <connections>
-                                    <segue destination="hLh-Bk-D5c" kind="show" id="OEg-en-dAG"/>
+                                    <segue destination="hLh-Bk-D5c" kind="show" id="xYc-Ha-WgP"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VNF-Hx-069">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Family Map" id="MkZ-Cm-QoG">
+                                        <barButtonItem key="backBarButtonItem" title="Map" id="AAe-YB-05I"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="m7r-Mw-3Ci"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Family Map" id="lqd-a9-iTZ">
-                        <barButtonItem key="backBarButtonItem" title="Map" id="c3p-Sz-6j6"/>
-                    </navigationItem>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="authModal" id="YSn-wx-4CN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P3f-70-LaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-281" y="21"/>
+            <point key="canvasLocation" x="3474.4000000000001" y="20.239880059970016"/>
         </scene>
         <!--Person View Controller-->
         <scene sceneID="Piz-Ps-dXk">
@@ -62,10 +56,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i1R-Is-nX1">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Person goes here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgf-of-5mp">
                                 <rect key="frame" x="120" y="323" width="134" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -73,6 +63,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eaH-Q4-PeZ">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Person" id="RhN-qC-gsE"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="eVU-qK-0eg"/>
@@ -80,12 +77,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJL-G9-5YW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="519" y="20"/>
+            <point key="canvasLocation" x="4274.3999999999996" y="19.340329835082461"/>
         </scene>
-        <!--View Controller-->
+        <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Login" id="BYZ-38-t0r" customClass="ViewController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -173,13 +170,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0r-ZP-ROZ">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Family Map Login" id="Hqb-cU-oNe"/>
-                                </items>
-                            </navigationBar>
                             <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="olS-er-eux">
                                 <rect key="frame" x="16" y="119" width="343" height="311"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -313,6 +303,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Login" id="vyj-ad-FMc">
+                        <barButtonItem key="backBarButtonItem" title="Logout" id="C1x-uh-au3"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="loginFormView" destination="qqO-5p-U7f" id="K5D-vL-NF2"/>
                         <outlet property="loginHost" destination="P9w-uc-sIB" id="xDB-Lu-LuZ"/>
@@ -329,33 +322,30 @@
                         <outlet property="registerPassword" destination="ZDN-Hh-byQ" id="Hgb-Jz-mpV"/>
                         <outlet property="registerPort" destination="7j7-Ed-reM" id="U4Q-Fp-W6o"/>
                         <outlet property="registerUsername" destination="O1B-7a-JJZ" id="Wag-PS-Peq"/>
-                        <segue destination="jUm-O5-wue" kind="presentation" identifier="returnToMapWithAuth" id="1P5-vv-JV0"/>
+                        <segue destination="jUm-O5-wue" kind="show" identifier="authSuccessful" id="7qc-oZ-qdc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-647" y="802"/>
+            <point key="canvasLocation" x="2658.4000000000001" y="18.440779610194905"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="9lO-WG-RzA">
+        <scene sceneID="nU0-IL-aft">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qz2-rY-x00" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9ft-wh-m4t" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ure-j3-Ow4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2sb-Sz-H1E">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="jUm-O5-wue" kind="relationship" relationship="rootViewController" id="jAD-8x-Lfr"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="aBw-7Y-QIZ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Xuf-N3-bkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xmw-ai-ArD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1177" y="21"/>
+            <point key="canvasLocation" x="1719.2" y="18.440779610194905"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="jAD-8x-Lfr"/>
-    </inferredMetricsTieBreakers>
 </document>
