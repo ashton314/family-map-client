@@ -45,10 +45,9 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let map = segue.destination as! MapViewController
 
-        guard let data = sender as? AuthInfo else { return }
+        guard let data = sender as? MemoryStore else { return }
 
-        map.authToken = data.authToken
-        map.rootPersonID = data.rootPersonID
+        map.store = data
         print("prepared for segue: \(data)")
     }
 
@@ -98,18 +97,20 @@ class ViewController: UIViewController {
 
         let sp = ServerProxy(host: info["host"]! ?? "", port: info["port"]! ?? "")
 
-        let callback = { (ok: Bool, message: String) -> Void in
+        let callback = { (ok: Bool, data: [String: String]) -> Void in
             if ok {
-                print("Ok: \(message)")
-//                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Success", message: message, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default))
-//                self.present(alert, animated: true, completion: nil)
-
-                self.performSegue(withIdentifier: "authSuccessful", sender: AuthInfo(authToken: "foo", rootPersonID: "bar"))
+                if let authToken = data["authToken"], let rootPerson = data["personID"] {
+                    self.performSegue(withIdentifier: "authSuccessful", sender: MemoryStore(people: [:], events: [:], authToken: authToken, rootPerson: rootPerson))
+                }
+                else {
+                    let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Error", message: "Unable to decode response", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
             else {
-                print("Not OK: \(message)")
-                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Error", message: message, preferredStyle: .alert)
+                print("Not OK: \(data["message"]!)")
+                let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Error", message: data["message"] ?? "", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
                 self.present(alert, animated: true, completion: nil)
             }

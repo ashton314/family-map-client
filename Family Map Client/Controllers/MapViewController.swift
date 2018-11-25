@@ -10,21 +10,18 @@ import UIKit
 
 class MapViewController: UIViewController {
 
-    var authToken: String = "";
-    var rootPersonID: String = "";
+    var store: MemoryStore?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Family Map"
 
-        // Do any additional setup after loading the view.
-        if authToken == "" {
-            performSegue(withIdentifier: "authModal", sender: nil)
-        }
     }
     
-//    @IBAction func unwindToMap(unwindSeuge: UIStoryboardSegue) {
-//        print("Done got unwound to map!")
-//    }
+    @IBAction func unwindToMap(unwindSeuge: UIStoryboardSegue) {
+        print("Done got unwound to map!")
+    }
 
     /*
     // MARK: - Navigation

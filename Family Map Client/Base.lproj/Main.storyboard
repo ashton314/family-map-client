@@ -23,9 +23,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0E-KD-CcO">
-                                <rect key="frame" x="143" y="516" width="89" height="30"/>
+                                <rect key="frame" x="146" y="516" width="84" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Go to Person"/>
+                                <state key="normal" title="Root Person"/>
                                 <connections>
                                     <segue destination="hLh-Bk-D5c" kind="show" id="xYc-Ha-WgP"/>
                                 </connections>
@@ -34,7 +34,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Family Map" id="MkZ-Cm-QoG">
+                                    <navigationItem title="Map" id="MkZ-Cm-QoG">
                                         <barButtonItem key="backBarButtonItem" title="Map" id="AAe-YB-05I"/>
                                     </navigationItem>
                                 </items>
@@ -67,7 +67,9 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Person" id="RhN-qC-gsE"/>
+                                    <navigationItem title="Person" largeTitleDisplayMode="always" id="RhN-qC-gsE">
+                                        <barButtonItem key="backBarButtonItem" title="Person" id="hCG-lv-gHz"/>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>

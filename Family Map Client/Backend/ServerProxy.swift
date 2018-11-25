@@ -16,7 +16,7 @@ class ServerProxy {
         self.host = host
         self.port = port
     }
-    func doLogin(username: String, password: String, callback: @escaping (Bool, String) -> Void) -> (Bool, String) {
+    func doLogin(username: String, password: String, callback: @escaping (Bool, [String:String]) -> Void) -> (Bool, String) {
 
         struct LoginRequest: Codable {
             let userName: String
@@ -37,60 +37,13 @@ class ServerProxy {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let task = URLSession.shared.uploadTask(with: request, from: jsonPayload) { data, response, error in
-            if let error = error {
-                print("Error in upload: \(error)")
-                DispatchQueue.main.async {
-                    callback(false, "Unknown error")
-                }
-                return
-            }
-            guard let response = response as? HTTPURLResponse,
-                (200...499).contains(response.statusCode) else {
-                    DispatchQueue.main.async {
-                        callback(false, "Server error")
-                    }
-                    return
-            }
-            
-            if (200...299).contains(response.statusCode) {
-                // TODO: parse response body
-                if let data = data,
-                    let dataString = String(data: data, encoding: .utf8) {
-                    print("Got data: \(dataString)")
-                    DispatchQueue.main.async {
-                        callback(true, dataString)
-                    }
-                }
-                else {
-                    DispatchQueue.main.async {
-                        callback(false, "Unknown error")
-                    }
-                }
-            }
-            else {
-                let jsonDecoder = JSONDecoder()
-                if let data = data,
-                    let dataString = String(data: data, encoding: .utf8),
-                    let response = try? jsonDecoder.decode([String: String].self, from: data) {
-                    print("Raw response: \(dataString)")
-                    DispatchQueue.main.async {
-                        callback(false, response["message"] ?? "Bad response from server")
-                    }
-                }
-                else {
-                    DispatchQueue.main.async {
-                        callback(false, "Unknown error")
-                    }
-                }
-
-            }
-        }
+            self.loginOrRegister(data: data, response: response, error: error, callback: callback) }
         task.resume()
         return (true, "request accepted")
     }
 
     func doRegister(username: String, password: String, email: String, firstname: String, lastname: String, gender: String,
-                    callback: @escaping (Bool, String) -> Void) -> (Bool, String) {
+                    callback: @escaping (Bool, [String:String]) -> Void) -> (Bool, String) {
         
         struct RegisterRequest: Codable {
             let userName: String
@@ -116,56 +69,66 @@ class ServerProxy {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let task = URLSession.shared.uploadTask(with: request, from: jsonPayload) { data, response, error in
-            if let error = error {
-                print("Error in upload: \(error)")
+            self.loginOrRegister(data: data, response: response, error: error, callback: callback) }
+        task.resume()
+        return (true, "request accepted")
+    }
+
+    func loginOrRegister(data: Data?, response: URLResponse?, error: Error?, callback: @escaping (Bool, [String: String]) -> Void) {
+
+        if let error = error {
+            print("Error in upload: \(error)")
+            DispatchQueue.main.async {
+                callback(false, ["message": "Error: \(error.localizedDescription)"])
+            }
+            return
+        }
+        guard let response = response as? HTTPURLResponse,
+            (200...499).contains(response.statusCode) else {
                 DispatchQueue.main.async {
-                    callback(false, "Unknown error")
+                    callback(false, ["message": "Server error"])
                 }
                 return
-            }
-            guard let response = response as? HTTPURLResponse,
-                (200...499).contains(response.statusCode) else {
-                    DispatchQueue.main.async {
-                        callback(false, "Server error")
-                    }
-                    return
-            }
-            
-            if (200...299).contains(response.statusCode) {
-                // TODO: parse response body
-                if let data = data,
-                    let dataString = String(data: data, encoding: .utf8) {
-                    print("Got data: \(dataString)")
-                    DispatchQueue.main.async {
-                        callback(true, dataString)
-                    }
-                }
-                else {
-                    DispatchQueue.main.async {
-                        callback(false, "Unknown error")
-                    }
+        }
+        
+        if (200...299).contains(response.statusCode) {
+            let decoder = JSONDecoder()
+            print("Branch 1")
+//            print("Data: \(data)")
+//            print("String: \(String(data: data!, encoding: .utf8))")
+            if let data = data,
+                let dataString = String(data: data, encoding: .utf8),
+                let decoded = try? decoder.decode([String: String].self, from: data) {
+                print("Raw response: \(dataString) (tag: 1)")
+                DispatchQueue.main.async {
+                    callback(true, decoded)
                 }
             }
             else {
-                let jsonDecoder = JSONDecoder()
-                if let data = data,
-                   let dataString = String(data: data, encoding: .utf8),
-                    let response = try? jsonDecoder.decode([String: String].self, from: data) {
-                    print("Raw response: \(dataString)")
-                    DispatchQueue.main.async {
-                        callback(false, response["message"] ?? "Bad response from server")
-                    }
+                print("Branch 1.2")
+                DispatchQueue.main.async {
+                    callback(false, ["message": "Unknown error"])
                 }
-                else {
-                    DispatchQueue.main.async {
-                        callback(false, "Unknown error")
-                    }
-                }
-                
             }
         }
-        task.resume()
-        return (true, "request accepted")
+        else {
+            let jsonDecoder = JSONDecoder()
+            print("Branch 2")
+            if let data = data,
+                let dataString = String(data: data, encoding: .utf8),
+                let response = try? jsonDecoder.decode([String: String].self, from: data) {
+                print("Raw response: \(dataString)")
+                DispatchQueue.main.async {
+                    callback(false, ["message": response["message"] ?? "Bad response from server"])
+                }
+            }
+            else {
+                DispatchQueue.main.async {
+                    callback(false, ["message": "Unknown error"])
+                }
+            }
+            
+        }
     }
 
 }
