@@ -13,11 +13,15 @@ class MemoryStore {
     let events: [String:Event]
     let authToken: String
     let rootPersonID: String
+    let host: String
+    let port: String
 
-    init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String) {
+    init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
         self.people = people
         self.events = events
         self.authToken = authToken
         self.rootPersonID = rootPerson
+        self.host = host
+        self.port = port
     }
 }

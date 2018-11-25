@@ -100,7 +100,7 @@ class ViewController: UIViewController {
         let callback = { (ok: Bool, data: [String: String]) -> Void in
             if ok {
                 if let authToken = data["authToken"], let rootPerson = data["personID"] {
-                    self.performSegue(withIdentifier: "authSuccessful", sender: MemoryStore(people: [:], events: [:], authToken: authToken, rootPerson: rootPerson))
+                    self.performSegue(withIdentifier: "authSuccessful", sender: MemoryStore(people: [:], events: [:], authToken: authToken, rootPerson: rootPerson, host: info["host"]! ?? "", port: info["port"]! ?? ""))
                 }
                 else {
                     let alert = UIAlertController(title: "\(wasLogin ? "Login" : "Register") Error", message: "Unable to decode response", preferredStyle: .alert)

@@ -8,11 +8,7 @@
 
 import Foundation
 
-class Person {
-
-    enum Gender {
-        case m,f
-    }
+class Person: Codable {
 
     let firstName: String
     let lastName: String
@@ -20,13 +16,13 @@ class Person {
     let personID: String
     let descendant: String
 
-    let mother: String?
-    let father: String?
-    let spouse: String?
+    let mother: String
+    let father: String
+    let spouse: String
 
-    let gender: Gender
+    let gender: String
 
-    init(firstName: String, lastName: String, personID: String, descendant: String, mother: String, father: String, spouse: String, gender: Gender) {
+    init(firstName: String, lastName: String, personID: String, descendant: String, mother: String, father: String, spouse: String, gender: String) {
         self.firstName  = firstName
         self.lastName   = lastName
         self.personID   = personID

@@ -17,6 +17,18 @@ class MapViewController: UIViewController {
         
         self.title = "Family Map"
 
+        let sp = ServerProxy(host: store!.host, port: store!.port)
+        print("Host: \(store!.host), port: \(store!.port)")
+        print("Auth token: \(store!.authToken), root person: \(store!.rootPersonID)")
+        let (ok, message) = sp.getPerson(authToken: store!.authToken, personID: store!.rootPersonID) {
+            (ok, resp) in
+            print(ok)
+            print("Response: \(resp)")  // TODO: display the person!
+        }
+        
+        if !ok {
+            print("Problem: \(message)")
+        }
     }
     
     @IBAction func unwindToMap(unwindSeuge: UIStoryboardSegue) {
