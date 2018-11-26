@@ -24,6 +24,11 @@ class MapViewController: UIViewController {
             (ok, resp) in
             print(ok)
             print("Response: \(resp)")  // TODO: display the person!
+            if let rootPerson = resp as? Person {
+                let alert = UIAlertController(title: "Root Person", message: "\(rootPerson.firstName) \(rootPerson.lastName)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         
         if !ok {
