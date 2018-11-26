@@ -22,7 +22,9 @@ class ServerProxy {
             return (false, "Couldn't build URL: bad host, port, personID")
         }
 
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        var request = URLRequest(url: url)
+        request.addValue(authToken, forHTTPHeaderField: "authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Error in fetching people: \(error)")
                 DispatchQueue.main.async {
@@ -59,7 +61,7 @@ class ServerProxy {
                     }
                 }
             }
-            callback(false, "Unable to parse response")
+//            callback(false, "Unable to parse response")
         }
         task.resume()
         return (true, "request successful")
