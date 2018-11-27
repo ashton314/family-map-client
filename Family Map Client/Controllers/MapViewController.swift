@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
 
     var store: MemoryStore?
+
+    @IBOutlet weak var mainMap: MKMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
