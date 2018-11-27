@@ -17,37 +17,55 @@ class MapViewController: UIViewController {
         
         self.title = "Family Map"
 
-        let sp = ServerProxy(host: store!.host, port: store!.port)
-        print("Host: \(store!.host), port: \(store!.port)")
-        print("Auth token: \(store!.authToken), root person: \(store!.rootPersonID)")
-        let (ok, message) = sp.getPerson(authToken: store!.authToken, personID: store!.rootPersonID) {
+        guard let store = store else {
+            return
+        }
+
+        let sp = ServerProxy(host: store.host, port: store.port)
+        print("Host: \(store.host), port: \(store.port)")
+        print("Auth token: \(store.authToken), root person: \(store.rootPersonID)")
+        let (ok, message) = sp.getPerson(authToken: store.authToken, personID: store.rootPersonID) {
             (ok, resp) in
-            print(ok)
-            print("Response: \(resp)")  // TODO: display the person!
             if let rootPerson = resp as? Person {
-                let alert = UIAlertController(title: "Root Person", message: "\(rootPerson.firstName) \(rootPerson.lastName)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
-                self.present(alert, animated: true, completion: nil)
+                self.doAlert("Root Person", message: "\(rootPerson.firstName) \(rootPerson.lastName)")
             }
         }
-        
         if !ok {
             print("Problem: \(message)")
+            return
         }
+
+        let (ok2, message2) = sp.getPeople(authToken: store.authToken) {
+            (ok, resp) in
+            if let people = resp as? [Person] {
+                store.people = Dictionary(uniqueKeysWithValues: people.map { ($0.personID, $0) })
+            } else {
+                print("Response that failed to become an array of people: \(resp)")
+                self.doAlert("Error", message: "Couldn't parse server response!")
+            }
+        }
+        if !ok2 {
+            print("Problem: \(message2)")
+            return
+        }
+    }
+
+    func doAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func unwindToMap(unwindSeuge: UIStoryboardSegue) {
         print("Done got unwound to map!")
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.destination.isKind(of: PersonViewController.self) {
+            if let dest = segue.destination as? PersonViewController {
+                dest.store = store
+            }
+        }
     }
-    */
 
 }

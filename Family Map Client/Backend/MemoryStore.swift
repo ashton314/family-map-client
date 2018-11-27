@@ -9,12 +9,12 @@
 import Foundation
 
 class MemoryStore {
-    let people: [String:Person]
-    let events: [String:Event]
-    let authToken: String
-    let rootPersonID: String
-    let host: String
-    let port: String
+    var people: [String:Person]
+    var events: [String:Event]
+    var authToken: String
+    var rootPersonID: String
+    var host: String
+    var port: String
 
     init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
         self.people = people

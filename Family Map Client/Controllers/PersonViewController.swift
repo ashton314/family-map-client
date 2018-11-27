@@ -10,6 +10,8 @@ import UIKit
 
 class PersonViewController: UIViewController {
 
+    var store: MemoryStore?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
