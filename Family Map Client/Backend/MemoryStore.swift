@@ -35,11 +35,12 @@ class MemoryStore {
             }
             if let people = resp as? [Person] {
                 self.people = Dictionary(uniqueKeysWithValues: people.map { ($0.personID, $0) })
+                print("ok fetching people")
+                callback(ok, resp)
             }
             else {
                 print("Could not parse response from server in updatePeople(): \(resp)")
             }
-            callback(ok, resp)
         }
         
         if !ok {
@@ -59,12 +60,13 @@ class MemoryStore {
                 return
             }
             if let events = resp as? [Event] {
-                self.events = Dictionary(uniqueKeysWithValues: events.map { ($0.id, $0) })
+                self.events = Dictionary(uniqueKeysWithValues: events.map { ($0.eventID, $0) })
+                print("got events")
+                callback(ok, resp)
             }
             else {
                 print("Could not parse response from server in updateEvents(): \(resp)")
             }
-            callback(ok, resp)
         }
         
         if !ok {

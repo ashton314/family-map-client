@@ -9,8 +9,8 @@
 import Foundation
 
 class Event: Codable {
-    let id: String
-    let event_type: String
+    let eventID: String
+    let eventType: String
 
     let latitude: Double
     let longitude: Double
@@ -18,20 +18,22 @@ class Event: Codable {
     let country: String
     let city: String
 
-    let timestamp: String
+//    let timestamp: String
+    let year: String
 
-    let person_id: String
-    let owner_id: String
+    let personID: String
+    let descendant: String
 
-    init(id: String, event_type: String, latitude: Double, longitude: Double, country: String, city: String, timestamp: String, person_id: String, owner_id: String) {
-        self.id = id
-        self.event_type = event_type
+    init(id: String, event_type: String, latitude: Double, longitude: Double, country: String, city: String, year: String, person_id: String, owner_id: String) {
+        self.eventID = id
+        self.eventType = event_type
         self.latitude = latitude
         self.longitude = longitude
         self.country = country
         self.city = city
-        self.timestamp = timestamp
-        self.person_id = person_id
-        self.owner_id = owner_id
+//        self.timestamp = timestamp
+        self.year = year
+        self.personID = person_id
+        self.descendant = owner_id
     }
 }

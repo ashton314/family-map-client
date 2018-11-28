@@ -43,11 +43,20 @@ class ServerProxy {
             
             if (200...299).contains(response.statusCode) {  // got good response
                 let decoder = JSONDecoder()
+                let debugString = data != nil ? (String(data: data as! Data, encoding: .utf8) ?? "") : ""
                 if let data = data,
-                    let decoded = try? decoder.decode([Person].self, from: data) {
+                   let decoded = try? decoder.decode([String: [Person]].self, from: data),
+                   let people = decoded["data"] {
+                    print("successfully got a bunch of people!")
                     DispatchQueue.main.async {
-                        callback(true, decoded)
+                        callback(true, people)
                         return
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        print("failed parsing data")
+                        callback(false, "couldn't parse \(debugString)")
                     }
                 }
             }
@@ -93,12 +102,17 @@ class ServerProxy {
             
             if (200...299).contains(response.statusCode) {  // got good response
                 let decoder = JSONDecoder()
+                let debugString = data != nil ? (String(data: data as! Data, encoding: .utf8) ?? "") : ""
                 if let data = data,
-                    let decoded = try? decoder.decode([Event].self, from: data) {
+                   let decoded = try? decoder.decode([String: [Event]].self, from: data),
+                   let events = decoded["data"] {
                     DispatchQueue.main.async {
-                        callback(true, decoded)
+                        callback(true, events)
                         return
                     }
+                }
+                else {
+                    callback(false, "error parsing \(debugString)")
                 }
             }
             else {  // got bad response
