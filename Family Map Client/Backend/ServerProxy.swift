@@ -67,6 +67,55 @@ class ServerProxy {
         return (true, "request successful")
     }
 
+    func getEvents(authToken: String, callback: @escaping (Bool, Any) -> Void) -> (Bool, String) {
+        guard let url = URL(string: "http://\(host):\(port)/event") else {
+            return (false, "Couldn't build URL: bad host, port")
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue(authToken, forHTTPHeaderField: "authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error in fetching people: \(error)")
+                DispatchQueue.main.async {
+                    callback(false, "Error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse,
+                (200...499).contains(response.statusCode) else {
+                    DispatchQueue.main.async {
+                        callback(false, "Server error")
+                    }
+                    return
+            }
+            
+            if (200...299).contains(response.statusCode) {  // got good response
+                let decoder = JSONDecoder()
+                if let data = data,
+                    let decoded = try? decoder.decode([Event].self, from: data) {
+                    DispatchQueue.main.async {
+                        callback(true, decoded)
+                        return
+                    }
+                }
+            }
+            else {  // got bad response
+                let decoder = JSONDecoder()
+                if let data = data,
+                    let decoded = try? decoder.decode([String:String].self, from: data) {
+                    DispatchQueue.main.async {
+                        callback(false, "Error: \(decoded["message"] ?? "Unknown error")")
+                        return
+                    }
+                }
+            }
+            //            callback(false, "Unable to parse response")
+        }
+        task.resume()
+        return (true, "request successful")
+    }
     
     func getPerson(authToken: String, personID: String, callback: @escaping (Bool, Any) -> Void) -> (Bool, String) {
         guard let url = URL(string: "http://\(host):\(port)/person/\(personID)") else {

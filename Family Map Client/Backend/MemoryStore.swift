@@ -24,4 +24,55 @@ class MemoryStore {
         self.host = host
         self.port = port
     }
+
+    func refreshPeople(callback: @escaping (Bool, Any) -> Void = {_,_ in } ) -> (Bool, String) {
+        let sp = ServerProxy(host: self.host, port: self.port)
+        let (ok, message) = sp.getPeople(authToken: self.authToken) { (ok, resp) in
+            guard ok else {
+                print("Not ok fetching people: \(resp)")
+                callback(false, resp)
+                return
+            }
+            if let people = resp as? [Person] {
+                self.people = Dictionary(uniqueKeysWithValues: people.map { ($0.personID, $0) })
+            }
+            else {
+                print("Could not parse response from server in updatePeople(): \(resp)")
+            }
+            callback(ok, resp)
+        }
+        
+        if !ok {
+            print("Request to fetch people failed: \(message)")
+            return (ok, message)
+        }
+        else {
+            return (true, message)
+        }
+    }
+    func refreshEvents(callback: @escaping (Bool, Any) -> Void = {_,_ in } ) -> (Bool, String) {
+        let sp = ServerProxy(host: self.host, port: self.port)
+        let (ok, message) = sp.getEvents(authToken: self.authToken) { (ok, resp) in
+            guard ok else {
+                print("Not ok fetching events: \(resp)")
+                callback(false, resp)
+                return
+            }
+            if let events = resp as? [Event] {
+                self.events = Dictionary(uniqueKeysWithValues: events.map { ($0.id, $0) })
+            }
+            else {
+                print("Could not parse response from server in updateEvents(): \(resp)")
+            }
+            callback(ok, resp)
+        }
+        
+        if !ok {
+            print("Request to fetch events failed: \(message)")
+            return (ok, message)
+        }
+        else {
+            return (true, message)
+        }
+    }
 }
