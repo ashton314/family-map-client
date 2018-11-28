@@ -19,6 +19,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Family Map"
+        mainMap.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,8 +56,14 @@ class MapViewController: UIViewController {
 
     func updateMap() {
         print("Updating map points...")
-        let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-        centerMapOnLocation(location: initialLocation)
+//            let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
+//            centerMapOnLocation(location: initialLocation)
+        guard let store = store else {return}
+
+        for (_, event) in store.events {
+            let marker = EventMarker.fromEvent(event)
+            mainMap.addAnnotation(marker)
+        }
     }
 
     let regionRadius: CLLocationDistance = 1000
@@ -82,5 +89,24 @@ class MapViewController: UIViewController {
             }
         }
     }
+}
 
+// Snarfed from https://www.raywenderlich.com/548-mapkit-tutorial-getting-started
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? EventMarker else { return nil }
+        let identifier = "marker"
+        var view: MKMarkerAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            as? MKMarkerAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+        } else {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) // TODO: make this button go to detail view!
+        }
+        return view
+    }
 }

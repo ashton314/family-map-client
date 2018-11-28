@@ -20,6 +20,7 @@
 		2D8CAF3F21A88D4E0097F032 /* Family_Map_ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF3E21A88D4E0097F032 /* Family_Map_ClientTests.swift */; };
 		2D8CAF4A21A88D4E0097F032 /* Family_Map_ClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8CAF4921A88D4E0097F032 /* Family_Map_ClientUITests.swift */; };
 		2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */; };
+		2DF0AC8421AE5CD800445B82 /* EventMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF0AC8321AE5CD800445B82 /* EventMarker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		2D8CAF4921A88D4E0097F032 /* Family_Map_ClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family_Map_ClientUITests.swift; sourceTree = "<group>"; };
 		2D8CAF4B21A88D4E0097F032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProxy.swift; sourceTree = "<group>"; };
+		2DF0AC8321AE5CD800445B82 /* EventMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventMarker.swift; path = "Family Map Client/Backend/EventMarker.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 		2D9C5BE521A8ED6000CF93FB /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				2DF0AC8321AE5CD800445B82 /* EventMarker.swift */,
 				2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */,
 				2D43E68221AA5448009FB219 /* Person.swift */,
 				2D43E68421AA545A009FB219 /* Event.swift */,
@@ -298,6 +301,7 @@
 				2D8CAF2A21A88D4B0097F032 /* AppDelegate.swift in Sources */,
 				2D43E68521AA545A009FB219 /* Event.swift in Sources */,
 				2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */,
+				2DF0AC8421AE5CD800445B82 /* EventMarker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
