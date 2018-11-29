@@ -82,10 +82,17 @@ class MapViewController: UIViewController {
         print("Unwound to map")
     }
 
+    @IBAction func showEventDetail(sender: UIButton, forEvent event: UIEvent) {
+        
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination.isKind(of: PersonViewController.self) {
-            if let dest = segue.destination as? PersonViewController {
+            if let dest = segue.destination as? PersonViewController,
+               let location = sender as? EventMarker,
+                let person = store!.people[location.personID] {
                 dest.store = store
+                dest.title = "\(person.firstName) \(person.lastName)"
             }
         }
     }
@@ -105,8 +112,13 @@ extension MapViewController: MKMapViewDelegate {
             view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            let detailButton = UIButton(type: .detailDisclosure)
+            view.rightCalloutAccessoryView = detailButton
         }
         return view
+    }
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let location = view.annotation as! EventMarker
+        self.performSegue(withIdentifier: "showPerson", sender: location)
     }
 }

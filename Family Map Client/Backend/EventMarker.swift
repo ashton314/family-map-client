@@ -14,12 +14,16 @@ class EventMarker: NSObject, MKAnnotation {
     let locationName: String
     let discipline: String
     let coordinate: CLLocationCoordinate2D
+    let personID: String
+    let eventID: String
     
-    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D) {
+    init(title: String, locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, personID: String, eventID: String) {
         self.title = title
         self.locationName = locationName
         self.discipline = discipline
         self.coordinate = coordinate
+        self.personID = personID
+        self.eventID = eventID
         
         super.init()
     }
@@ -30,6 +34,7 @@ class EventMarker: NSObject, MKAnnotation {
 
     static func fromEvent(_ event: Event) -> EventMarker {
         return EventMarker(title: event.eventType, locationName: "\(event.city), \(event.country)", discipline: event.eventType,
-                           coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude))
+                           coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude),
+                           personID: event.personID, eventID: event.eventID)
     }
 }
