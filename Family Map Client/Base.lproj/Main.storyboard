@@ -19,46 +19,58 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bcr-VB-xcT">
-                                <rect key="frame" x="0.0" y="64" width="375" height="545"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0E-KD-CcO">
-                                <rect key="frame" x="145" y="617" width="85" height="30"/>
-                                <state key="normal" title="Root Person"/>
-                                <connections>
-                                    <segue destination="hLh-Bk-D5c" kind="show" id="xYc-Ha-WgP"/>
-                                </connections>
-                            </button>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T8p-cF-3Lc">
+                                <rect key="frame" x="0.0" y="667" width="375" height="49"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="ozy-KR-xjO"/>
+                                    <tabBarItem systemItem="more" id="nit-rl-DA1"/>
+                                </items>
+                            </tabBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MhZ-An-0Fg">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fkI-M4-jeJ"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="C1M-dh-aFy"/>
+                                    <barButtonItem systemItem="search" id="YLD-bC-bpG">
+                                        <connections>
+                                            <segue destination="OfS-wh-v0d" kind="show" id="Z3L-uX-NG1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="TuG-pQ-bub"/>
+                                    <barButtonItem title="Filter" image="custom_filter" id="qNp-VH-oEp">
+                                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
+                                        <connections>
+                                            <segue destination="tuR-yr-C7x" kind="presentation" id="TpL-x6-UEB"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="VRl-4W-HZd"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bcr-VB-xcT" firstAttribute="trailing" secondItem="m7r-Mw-3Ci" secondAttribute="trailing" id="6QN-wA-aof"/>
-                            <constraint firstItem="d0E-KD-CcO" firstAttribute="leading" secondItem="m7r-Mw-3Ci" secondAttribute="leading" constant="145" id="F5r-VF-lbZ"/>
-                            <constraint firstItem="m7r-Mw-3Ci" firstAttribute="trailing" secondItem="d0E-KD-CcO" secondAttribute="trailing" constant="145" id="P0P-ZQ-JUW"/>
-                            <constraint firstItem="d0E-KD-CcO" firstAttribute="leading" secondItem="m7r-Mw-3Ci" secondAttribute="leading" constant="145" id="QZ1-Yb-SZB"/>
-                            <constraint firstItem="d0E-KD-CcO" firstAttribute="top" secondItem="bcr-VB-xcT" secondAttribute="bottom" constant="8" id="ZKH-55-sea"/>
-                            <constraint firstItem="bcr-VB-xcT" firstAttribute="top" secondItem="m7r-Mw-3Ci" secondAttribute="top" id="aac-Q6-qfq"/>
-                            <constraint firstItem="bcr-VB-xcT" firstAttribute="top" secondItem="m7r-Mw-3Ci" secondAttribute="top" id="mf7-h0-khJ"/>
-                            <constraint firstItem="bcr-VB-xcT" firstAttribute="centerX" secondItem="d0E-KD-CcO" secondAttribute="centerX" id="qOk-y3-Dec"/>
-                            <constraint firstItem="bcr-VB-xcT" firstAttribute="leading" secondItem="m7r-Mw-3Ci" secondAttribute="leading" id="rOd-8j-klD"/>
-                            <constraint firstItem="m7r-Mw-3Ci" firstAttribute="bottom" secondItem="d0E-KD-CcO" secondAttribute="bottom" constant="20" id="tIK-XK-qrg"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="trailing" secondItem="bcr-VB-xcT" secondAttribute="trailing" id="1mp-mE-rCd"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="trailing" secondItem="T8p-cF-3Lc" secondAttribute="trailing" id="3WF-0b-bxk"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="leading" secondItem="T8p-cF-3Lc" secondAttribute="leading" id="5SI-LU-p7q"/>
+                            <constraint firstItem="bcr-VB-xcT" firstAttribute="top" secondItem="m7r-Mw-3Ci" secondAttribute="top" id="KFz-oT-CbX"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="top" secondItem="bcr-VB-xcT" secondAttribute="bottom" id="Loz-ve-srl"/>
+                            <constraint firstAttribute="trailing" secondItem="MhZ-An-0Fg" secondAttribute="trailing" id="QDt-y5-24l"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="bottom" secondItem="m7r-Mw-3Ci" secondAttribute="bottom" id="Y1m-gu-cfe"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="leading" secondItem="MWt-l3-6RZ" secondAttribute="leading" id="aXh-6i-p9h"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="leading" secondItem="bcr-VB-xcT" secondAttribute="leading" id="eBE-Lc-79d"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="top" secondItem="bcr-VB-xcT" secondAttribute="bottom" id="f2q-M7-MEf"/>
+                            <constraint firstItem="MhZ-An-0Fg" firstAttribute="top" secondItem="bcr-VB-xcT" secondAttribute="bottom" id="mMv-TA-nAq"/>
+                            <constraint firstItem="T8p-cF-3Lc" firstAttribute="top" secondItem="MhZ-An-0Fg" secondAttribute="bottom" id="rkR-z4-y0E"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="m7r-Mw-3Ci"/>
                     </view>
                     <navigationItem key="navigationItem" title="Family Map" id="sfy-w8-WHi">
                         <barButtonItem key="backBarButtonItem" title="Map" id="ZyX-vd-HHC"/>
-                        <leftBarButtonItems>
-                            <barButtonItem systemItem="search" id="YLD-bC-bpG">
-                                <connections>
-                                    <segue destination="OfS-wh-v0d" kind="show" id="Z3L-uX-NG1"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Filter" image="custom_filter" id="qNp-VH-oEp">
-                                <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
-                                <connections>
-                                    <segue destination="tuR-yr-C7x" kind="presentation" id="TpL-x6-UEB"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" tag="1" title="Settings" image="custom_settings" id="gMQ-XS-oC5">
                             <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-11"/>
                             <connections>
@@ -69,11 +81,12 @@
                     <connections>
                         <outlet property="mainMap" destination="bcr-VB-xcT" id="0f8-UY-fEj"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="doAuth" id="Srm-Fk-XsS"/>
+                        <segue destination="hLh-Bk-D5c" kind="show" identifier="showPerson" id="coH-xs-Gku"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P3f-70-LaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2860" y="-33"/>
+            <point key="canvasLocation" x="2860" y="-33.733133433283363"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4my-b3-c4s">
@@ -165,7 +178,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJL-G9-5YW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4241" y="-231"/>
+            <point key="canvasLocation" x="4158" y="-49"/>
         </scene>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
