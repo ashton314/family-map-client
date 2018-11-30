@@ -12,12 +12,27 @@ class PersonViewController: UIViewController {
 
     var store: MemoryStore?
 
+    var currentPersonID: String?
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var birthLabel: UILabel!
+    @IBOutlet weak var deathLabel: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let currentPersonID = currentPersonID,
+           let person = store!.people[currentPersonID] {
+            print("Setting name label: \(person.firstName) \(person.lastName)")
+            nameLabel.text = "\(person.firstName) \(person.lastName)"
+            genderLabel.text = person.gender == "m" ? "Male" : "Female"
+        }
+    }
 
     /*
     // MARK: - Navigation

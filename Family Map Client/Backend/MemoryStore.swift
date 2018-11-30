@@ -11,6 +11,7 @@ import Foundation
 class MemoryStore {
     var people: [String:Person]
     var events: [String:Event]
+    var eventsByPerson: [String:[Event]]
     var authToken: String
     var rootPersonID: String
     var host: String
@@ -23,6 +24,7 @@ class MemoryStore {
         self.rootPersonID = rootPerson
         self.host = host
         self.port = port
+        self.eventsByPerson = MemoryStore.transposeEventIndex(events)
     }
 
     func refreshPeople(callback: @escaping (Bool, Any) -> Void = {_,_ in } ) -> (Bool, String) {
@@ -76,5 +78,16 @@ class MemoryStore {
         else {
             return (true, message)
         }
+    }
+
+    static func transposeEventIndex(_ events: [String:Event]) -> [String:[Event]] {
+        var index: [String:[Event]] = [:]
+        for (_, event) in events {
+            if index[event.personID] == nil {
+                index[event.personID] = []
+            }
+            index[event.personID]!.append(event)
+        }
+        return index
     }
 }

@@ -32,4 +32,8 @@ class Person: Codable {
         self.spouse     = spouse
         self.gender     = gender
     }
+    
+    func fullName() -> String {
+        return "\(firstName) \(lastName)"
+    }
 }

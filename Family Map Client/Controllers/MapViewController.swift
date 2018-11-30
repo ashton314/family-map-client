@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
 
     var store: MemoryStore?
 
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var mainMap: MKMapView!
 
     override func viewDidLoad() {
@@ -53,7 +54,11 @@ class MapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         //
     }
-
+    @IBAction func doLogOut(_ sender: Any) {
+        store?.authToken = ""
+        self.performSegue(withIdentifier: "doAuth", sender: nil)
+    }
+    
     func updateMap() {
         print("Updating map points...")
 //            let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
@@ -61,7 +66,7 @@ class MapViewController: UIViewController {
         guard let store = store else {return}
 
         for (_, event) in store.events {
-            let marker = EventMarker.fromEvent(event)
+            let marker = EventMarker.fromEvent(event, store: store)
             mainMap.addAnnotation(marker)
         }
     }
@@ -93,6 +98,7 @@ class MapViewController: UIViewController {
                 let person = store!.people[location.personID] {
                 dest.store = store
                 dest.title = "\(person.firstName) \(person.lastName)"
+                dest.currentPersonID = location.personID
             }
         }
     }
