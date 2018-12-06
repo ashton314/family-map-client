@@ -1,57 +1,62 @@
 //
-//  SettingsController.swift
+//  PersonDetailController.swift
 //  Family Map Client
 //
-//  Created by Ashton Wiersdorf on 2018-12-04.
+//  Created by Ashton Wiersdorf on 2018-12-05.
 //  Copyright © 2018 Ashton Wiersdorf. All rights reserved.
 //
 
 import UIKit
 
-class SettingsController: UITableViewController {
+class PersonDetailController: UITableViewController {
 
-    var staticSettings = [
-        SettingToggle(title: "Show Lines", state: true),
-        SettingToggle(title: "Show father's side", state: true),
-        SettingToggle(title: "Show mother's side", state: true)
-    ]
+    var store: MemoryStore?
+    var currentPersonID: String?
+
+    @IBOutlet weak var personName: UILabel!
+    @IBOutlet weak var personGender: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
 
-//        self.navigationItem.rightBarButtonItem =
+    override func viewWillAppear(_ animated: Bool) {
+        print("Hah! got called!")
+        if let currentPersonID = currentPersonID,
+           let person = store!.people[currentPersonID] {
+            print("Setting name label: \(person.firstName) \(person.lastName)")
+            personName.text   = "\(person.lastName), \(person.firstName)"
+            personGender.text = person.gender == "m" ? "Male" : "Female"
+            // nameLabel.text = "\(person.firstName) \(person.lastName)"
+            // genderLabel.text = person.gender == "m" ? "Male" : "Female"
+        }
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        // #warning Incomplete implementation, return the number of sections
+//        return 0
+//    }
+//
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // #warning Incomplete implementation, return the number of rows
+//        return 0
+//    }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return staticSettings.count
-        }
-        else {
-            return 0
-        }
-    }
-
-
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "staticSettingsCell", for: indexPath) as! ToggleSettingViewCell
-        
-        cell.update(with: staticSettings[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
 
         return cell
     }
-
+    */
 
     /*
     // Override to support conditional editing of the table view.

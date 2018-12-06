@@ -92,8 +92,8 @@ class MapViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination.isKind(of: PersonViewController.self) {
-            if let dest = segue.destination as? PersonViewController,
+        if segue.destination.isKind(of: PersonDetailController.self) {
+            if let dest = segue.destination as? PersonDetailController,
                let location = sender as? EventMarker,
                 let person = store!.people[location.personID] {
                 dest.store = store
