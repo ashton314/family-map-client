@@ -63,6 +63,7 @@ class MemoryStore {
             }
             if let events = resp as? [Event] {
                 self.events = Dictionary(uniqueKeysWithValues: events.map { ($0.eventID, $0) })
+                self.eventsByPerson = MemoryStore.transposeEventIndex(self.events)
                 print("got events")
                 callback(ok, resp)
             }
@@ -86,6 +87,7 @@ class MemoryStore {
             if index[event.personID] == nil {
                 index[event.personID] = []
             }
+            print("transposing event \(event.eventID) for person \(event.personID)")
             index[event.personID]!.append(event)
         }
         return index

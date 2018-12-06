@@ -79,7 +79,7 @@
                         <barButtonItem key="rightBarButtonItem" tag="1" title="Settings" image="custom_settings" id="gMQ-XS-oC5">
                             <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-11"/>
                             <connections>
-                                <segue destination="tEM-9F-ZQj" kind="show" id="oVl-4R-393"/>
+                                <segue destination="tEM-9F-ZQj" kind="presentation" id="oVl-4R-393"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -174,7 +174,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="r9l-Lh-q1q" kind="show" id="uz9-Ln-Eca"/>
+                                            <segue destination="7c9-OD-kfb" kind="show" id="i9Y-jV-gJg"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="FVV-fQ-XON" style="IBUITableViewCellStyleDefault" id="ifL-Up-7UM">
@@ -224,36 +224,60 @@
             <point key="canvasLocation" x="3889" y="-27"/>
         </scene>
         <!--Life Events-->
-        <scene sceneID="bUO-Sv-mEK">
+        <scene sceneID="nRD-CX-Frm">
             <objects>
-                <viewController id="r9l-Lh-q1q" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dFs-Gg-n4s">
+                <tableViewController id="7c9-OD-kfb" customClass="EventListingController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AVY-E0-wDc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Life Events Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOz-BX-bHp">
-                                <rect key="frame" x="125" y="323" width="125" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="StB-iN-jvC"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Life Events" largeTitleDisplayMode="always" id="Rza-mh-TrC">
-                        <barButtonItem key="rightBarButtonItem" title="Map" id="ETS-TT-Ulb">
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="eventCell" textLabel="a9a-rw-FKd" detailTextLabel="ZTp-QA-k81" style="IBUITableViewCellStyleSubtitle" id="OkH-FL-QlF" customClass="EventViewCell" customModule="Family_Map_Client" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OkH-FL-QlF" id="kW2-gj-KmU">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="a9a-rw-FKd">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZTp-QA-k81">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="subtitleLabel" destination="ZTp-QA-k81" id="oya-8V-DiQ"/>
+                                    <outlet property="titleLabel" destination="a9a-rw-FKd" id="QVw-ge-rj5"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7c9-OD-kfb" id="tsX-BF-WEI"/>
+                            <outlet property="delegate" destination="7c9-OD-kfb" id="H7c-8Q-YXC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Life Events" id="RBT-aQ-EIm">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="Yh8-fM-pEN">
                             <connections>
-                                <segue destination="bZG-Pi-E5Q" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="eQ5-oU-l7C"/>
+                                <segue destination="jLU-D5-SmP" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="zy0-sP-ETA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Fs-Rl-OhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bZG-Pi-E5Q" userLabel="Exit" sceneMemberID="exit"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NYl-Sw-V5Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jLU-D5-SmP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5026" y="-513"/>
+            <point key="canvasLocation" x="5025" y="-501"/>
         </scene>
         <!--Family-->
         <scene sceneID="3uq-X3-Dmx">
@@ -623,9 +647,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="E5f-pa-5Bm">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Settings" id="u8b-rw-MYt">
+                                    <barButtonItem key="rightBarButtonItem" title="Done" id="A5w-tu-DHk">
+                                        <connections>
+                                            <segue destination="MVU-Ql-lM6" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="9ar-Xz-QrF"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="staticSettingsCell" rowHeight="55" id="IZb-Ch-aDX" customClass="ToggleSettingViewCell" customModule="Family_Map_Client" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="99.5" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IZb-Ch-aDX" id="5Fs-ub-NXT">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
@@ -662,10 +699,10 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yOz-q3-LOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="MVU-Ql-lM6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2080.8000000000002" y="741.67916041979015"/>
         </scene>
