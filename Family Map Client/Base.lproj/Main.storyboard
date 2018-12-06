@@ -94,7 +94,7 @@
             </objects>
             <point key="canvasLocation" x="2860" y="-33.733133433283363"/>
         </scene>
-        <!--Person Detail Controller-->
+        <!--Title-->
         <scene sceneID="Qry-pp-73J">
             <objects>
                 <tableViewController id="VhI-gb-0PA" customClass="PersonDetailController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
@@ -205,16 +205,25 @@
                             <outlet property="delegate" destination="VhI-gb-0PA" id="EkF-u1-tYf"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="5zj-LX-rKn">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="ZPU-hz-qfo">
+                            <connections>
+                                <segue destination="Alx-cJ-01n" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="IvG-Es-Sa3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="personGender" destination="hEh-aN-QfM" id="nyU-B9-tZq"/>
                         <outlet property="personName" destination="Zkm-on-kBJ" id="0gU-IQ-VdQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EDo-w3-uw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Alx-cJ-01n" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3889" y="-27"/>
         </scene>
-        <!--View Controller-->
+        <!--Life Events-->
         <scene sceneID="bUO-Sv-mEK">
             <objects>
                 <viewController id="r9l-Lh-q1q" sceneMemberID="viewController">
@@ -233,12 +242,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="StB-iN-jvC"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Life Events" largeTitleDisplayMode="always" id="Rza-mh-TrC">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="ETS-TT-Ulb">
+                            <connections>
+                                <segue destination="bZG-Pi-E5Q" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="eQ5-oU-l7C"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Fs-Rl-OhH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bZG-Pi-E5Q" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5026" y="-513"/>
         </scene>
-        <!--View Controller-->
+        <!--Family-->
         <scene sceneID="3uq-X3-Dmx">
             <objects>
                 <viewController id="7d7-0K-CG6" sceneMemberID="viewController">
@@ -257,8 +274,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="kpp-Vc-KGJ"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Family" id="CkI-To-Ytl">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="cKW-fF-tCX">
+                            <connections>
+                                <segue destination="pnk-Yt-XQp" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="MzI-VA-rlZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Zb-GL-Dqi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="pnk-Yt-XQp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5025" y="177"/>
         </scene>

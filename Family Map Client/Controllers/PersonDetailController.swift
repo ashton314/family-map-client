@@ -20,8 +20,9 @@ class PersonDetailController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let exitButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+//        self.navigationItem.rightBarButtonItem =
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
