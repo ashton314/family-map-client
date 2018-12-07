@@ -16,6 +16,9 @@ class MemoryStore {
     var rootPersonID: String
     var host: String
     var port: String
+    
+    // Settings
+    var mapType = "foo"
 
     init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
         self.people = people
