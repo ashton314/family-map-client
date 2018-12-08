@@ -22,7 +22,13 @@ class MemoryStore {
     var port: String
     
     // Settings
-    var mapType = "foo"
+    var mapType: MKMapType = .standard
+    var lifeLineColor: UIColor = .blue
+    var familyLineColor: UIColor = .gray
+    var spouseLineColor: UIColor = .green
+    var showLifeLine = true
+    var showFamilyLine = true
+    var showSpouseLine = true
 
     init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
         self.people = people
@@ -86,6 +92,22 @@ class MemoryStore {
         else {
             return (true, message)
         }
+    }
+
+    // returns events where type is given in the array
+    func getEventsWithTypes(_ types: [String]) -> [Event] {
+        return self.events.map({ $1 }).filter({ types.contains($0.eventType) })
+    }
+
+    // returns a unique set of Strings that cover the event.eventType field
+    func eventTypes() -> [String] {
+        var types = Set<String>()
+
+        for (_, event) in self.events {
+            types.insert(event.eventType)
+        }
+
+        return types.sorted()
     }
 
     // walks a person's lineage

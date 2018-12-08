@@ -44,6 +44,8 @@ class Person: Codable, Equatable, CustomStringConvertible {
     static func ==(lhs: Person, rhs: Person) -> Bool {
         return lhs.firstName == rhs.firstName &&
             lhs.lastName == rhs.lastName &&
-            lhs.personID == rhs.personID;
+            lhs.personID == rhs.personID &&
+            lhs.descendant == rhs.descendant &&
+            lhs.gender == rhs.gender;
     }
 }

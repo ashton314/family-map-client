@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Event: Codable {
+class Event: Codable, Equatable, CustomStringConvertible, Hashable {
     let eventID: String
     let eventType: String
 
@@ -18,11 +18,14 @@ class Event: Codable {
     let country: String
     let city: String
 
-//    let timestamp: String
     let year: String
 
     let personID: String
     let descendant: String
+
+    var description: String {
+        return "Event(id: \(eventID), event_type: \(eventType), latitude: \(latitude), country: \(country), city: \(city), year: \(year), personID: \(personID), descendant: \(descendant))"
+    }
 
     init(id: String, event_type: String, latitude: Double, longitude: Double, country: String, city: String, year: String, person_id: String, owner_id: String) {
         self.eventID = id
@@ -31,9 +34,16 @@ class Event: Codable {
         self.longitude = longitude
         self.country = country
         self.city = city
-//        self.timestamp = timestamp
         self.year = year
         self.personID = person_id
         self.descendant = owner_id
+    }
+
+    static func ==(lhs: Event, rhs: Event) -> Bool {
+        return lhs.eventID == rhs.eventID
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(eventID)
     }
 }

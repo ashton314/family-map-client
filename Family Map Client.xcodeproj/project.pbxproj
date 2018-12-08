@@ -16,6 +16,7 @@
 		2D4D8DB621B79B7100C3B955 /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D8DB521B79B7100C3B955 /* SettingsController.swift */; };
 		2D4D8DB821B79EA700C3B955 /* SettingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D8DB721B79EA700C3B955 /* SettingToggle.swift */; };
 		2D4D8DBA21B7A48F00C3B955 /* ToggleSettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D8DB921B7A48F00C3B955 /* ToggleSettingViewCell.swift */; };
+		2D5DFECB21BC759500A563CA /* SubSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5DFECA21BC759500A563CA /* SubSettingCell.swift */; };
 		2D5F87A921B8DF1E003AE1E8 /* PersonDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5F87A821B8DF1E003AE1E8 /* PersonDetailController.swift */; };
 		2D5F87AB21B8F683003AE1E8 /* EventViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5F87AA21B8F683003AE1E8 /* EventViewCell.swift */; };
 		2D5F87AD21B8F704003AE1E8 /* EventListingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5F87AC21B8F704003AE1E8 /* EventListingController.swift */; };
@@ -58,6 +59,7 @@
 		2D4D8DB521B79B7100C3B955 /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		2D4D8DB721B79EA700C3B955 /* SettingToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingToggle.swift; sourceTree = "<group>"; };
 		2D4D8DB921B7A48F00C3B955 /* ToggleSettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSettingViewCell.swift; sourceTree = "<group>"; };
+		2D5DFECA21BC759500A563CA /* SubSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubSettingCell.swift; path = Controllers/SubSettingCell.swift; sourceTree = "<group>"; };
 		2D5F87A821B8DF1E003AE1E8 /* PersonDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailController.swift; sourceTree = "<group>"; };
 		2D5F87AA21B8F683003AE1E8 /* EventViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewCell.swift; sourceTree = "<group>"; };
 		2D5F87AC21B8F704003AE1E8 /* EventListingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListingController.swift; sourceTree = "<group>"; };
@@ -130,7 +132,7 @@
 				2D8CAF2921A88D4B0097F032 /* AppDelegate.swift */,
 				2D9C5BE421A8ED5400CF93FB /* Controllers */,
 				2D8CAF2D21A88D4B0097F032 /* Main.storyboard */,
-				2D02193E21BB550E00061036 /* PersonModelTest.swift */,
+				2D5DFECA21BC759500A563CA /* SubSettingCell.swift */,
 				2DAEA35121BA1B6300A66DE3 /* EventDetailController.swift */,
 				2D8CAF3021A88D4E0097F032 /* Assets.xcassets */,
 				2D8CAF3221A88D4E0097F032 /* LaunchScreen.storyboard */,
@@ -143,6 +145,7 @@
 		2D8CAF3D21A88D4E0097F032 /* Family Map ClientTests */ = {
 			isa = PBXGroup;
 			children = (
+				2D02193E21BB550E00061036 /* PersonModelTest.swift */,
 				2D8CAF3E21A88D4E0097F032 /* Family_Map_ClientTests.swift */,
 				2D8CAF4021A88D4E0097F032 /* Info.plist */,
 			);
@@ -328,6 +331,7 @@
 				2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */,
 				2D8CAF2A21A88D4B0097F032 /* AppDelegate.swift in Sources */,
 				2D4D8DB621B79B7100C3B955 /* SettingsController.swift in Sources */,
+				2D5DFECB21BC759500A563CA /* SubSettingCell.swift in Sources */,
 				2D5F87AD21B8F704003AE1E8 /* EventListingController.swift in Sources */,
 				2D5F87A921B8DF1E003AE1E8 /* PersonDetailController.swift in Sources */,
 				2D43E68521AA545A009FB219 /* Event.swift in Sources */,
