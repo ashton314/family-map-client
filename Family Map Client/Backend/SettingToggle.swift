@@ -10,7 +10,7 @@ import Foundation
 
 class SettingToggle {
     let title: String
-    let state: Bool
+    var state: Bool
     
     init(title: String, state: Bool) {
         self.title = title

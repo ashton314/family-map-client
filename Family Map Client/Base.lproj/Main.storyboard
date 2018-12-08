@@ -94,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="2860" y="-33.733133433283363"/>
         </scene>
-        <!--Title-->
+        <!--Person Detail-->
         <scene sceneID="Qry-pp-73J">
             <objects>
-                <tableViewController id="VhI-gb-0PA" customClass="PersonDetailController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Person Detail" id="VhI-gb-0PA" customClass="PersonDetailController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Hme-bM-43K">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -726,19 +726,19 @@
         <!--Settings-->
         <scene sceneID="SKr-Nv-Hq5">
             <objects>
-                <tableViewController title="Settings" id="tEM-9F-ZQj" customClass="SettingsController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Settings" extendedLayoutIncludesOpaqueBars="YES" id="tEM-9F-ZQj" customClass="SettingsController" customModule="Family_Map_Client" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="wdM-aU-Nlm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="E5f-pa-5Bm">
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="Qlb-YJ-dP8">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Settings" id="u8b-rw-MYt">
-                                    <barButtonItem key="rightBarButtonItem" title="Done" id="A5w-tu-DHk">
+                                <navigationItem title="Settings" id="2Q1-OX-TmC">
+                                    <barButtonItem key="rightBarButtonItem" systemItem="save" id="9gm-5o-dZh">
                                         <connections>
-                                            <segue destination="MVU-Ql-lM6" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="9ar-Xz-QrF"/>
+                                            <segue destination="MVU-Ql-lM6" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="Ned-oi-NAf"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -760,6 +760,9 @@
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fj0-86-4pG">
                                             <rect key="frame" x="308" y="11" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="switchToggled:" destination="IZb-Ch-aDX" eventType="valueChanged" id="wYM-zs-OtH"/>
+                                            </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
@@ -782,13 +785,14 @@
                             <outlet property="delegate" destination="tEM-9F-ZQj" id="ax5-tS-EcG"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yOz-q3-LOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="MVU-Ql-lM6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2080.8000000000002" y="741.67916041979015"/>
+            <point key="canvasLocation" x="2116" y="742"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="XPc-8z-HGt">

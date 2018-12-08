@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsController: UITableViewController {
 
-    var staticSettings = [
+    static var staticSettings = [
         SettingToggle(title: "Show Lines", state: true),
         SettingToggle(title: "Show father's side", state: true),
         SettingToggle(title: "Show mother's side", state: true)
@@ -36,7 +36,7 @@ class SettingsController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return staticSettings.count
+            return SettingsController.staticSettings.count
         }
         else {
             return 0
@@ -47,7 +47,7 @@ class SettingsController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "staticSettingsCell", for: indexPath) as! ToggleSettingViewCell
         
-        cell.update(with: staticSettings[indexPath.row])
+        cell.update(with: SettingsController.staticSettings[indexPath.row])
 
         return cell
     }

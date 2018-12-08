@@ -46,20 +46,6 @@ class Family_Map_ClientTests: XCTestCase {
             XCTAssert(store.events.count > 0, "we didn't get any events")
         }
 
-//        for _ in 1...5 {
-//            print("checking for events...")
-//            if store.events.count == 0 {
-//                print("nope")
-//            }
-//            else {
-//                print("yup!")
-//                break
-//            }
-//            print("sleeping for 1 second...")
-//            sleep(1)
-//        }
-//        print("giving up")
-
         XCTAssertTrue(refresh_ok, "problem refreshing events: \(refresh_message)")
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Person: Codable {
+class Person: Codable, Equatable, CustomStringConvertible {
 
     let firstName: String
     let lastName: String
@@ -21,6 +21,10 @@ class Person: Codable {
     let spouse: String
 
     let gender: String
+
+    var description: String {
+        return "Person(firstName: \(firstName), lastName: \(lastName), personID: \(personID), descendant: \(descendant), mother: \(mother), father: \(father), spouse: \(spouse), gender: \(gender))"
+    }
 
     init(firstName: String, lastName: String, personID: String, descendant: String, mother: String, father: String, spouse: String, gender: String) {
         self.firstName  = firstName
@@ -35,5 +39,11 @@ class Person: Codable {
     
     func fullName() -> String {
         return "\(firstName) \(lastName)"
+    }
+
+    static func ==(lhs: Person, rhs: Person) -> Bool {
+        return lhs.firstName == rhs.firstName &&
+            lhs.lastName == rhs.lastName &&
+            lhs.personID == rhs.personID;
     }
 }

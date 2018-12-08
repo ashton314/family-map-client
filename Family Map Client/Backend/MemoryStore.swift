@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum TreeSide {
+    case paternal, maternal
+}
+
 class MemoryStore {
     var people: [String:Person]
     var events: [String:Event]
@@ -84,6 +88,24 @@ class MemoryStore {
         }
     }
 
+    // walks a person's lineage
+    func walkTree(_ rootID: String) -> [Person] {
+        if let rootPerson = self.people[rootID] {
+            return [rootPerson] + walkTree(rootPerson.father) + walkTree(rootPerson.mother)
+        }
+        else {
+            return []
+        }
+    }
+
+    func filterBySide(rootID: String, side: TreeSide) -> [Person] {
+        let rootPerson = self.people[rootID]
+        let firstParent = side == .paternal ? rootPerson?.father : rootPerson?.mother
+        return walkTree(firstParent!)
+    }
+
+    // Takes a map event_id -> Event and returns a map person_id -> [Event], so events
+    // can be retrieved by person_id
     static func transposeEventIndex(_ events: [String:Event]) -> [String:[Event]] {
         var index: [String:[Event]] = [:]
         for (_, event) in events {
