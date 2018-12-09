@@ -69,6 +69,15 @@ class MapViewController: UIViewController {
             let marker = EventMarker.fromEvent(event, store: store)
             mainMap.addAnnotation(marker)
         }
+
+        // let LAX = CLLocation(latitude: 33.9424955, longitude: -118.4080684)
+        // let JFK = CLLocation(latitude: 40.6397511, longitude: -73.7789256)
+
+        // var coordinates = [LAX.coordinate, JFK.coordinate]
+        // let geodesicPolyline = MKGeodesicPolyline(coordinates: &coordinates, count: 2)
+        // print("adding polyline")
+        // mainMap.addOverlay(geodesicPolyline)
+        // print("added polyline")
     }
 
     let regionRadius: CLLocationDistance = 1000
@@ -88,7 +97,7 @@ class MapViewController: UIViewController {
     }
 
     @IBAction func showEventDetail(sender: UIButton, forEvent event: UIEvent) {
-        
+        print("Showing event detail")
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,17 +110,38 @@ class MapViewController: UIViewController {
                 dest.currentPersonID = location.personID
             }
         }
+        else if segue.destination.isKind(of: SettingsController.self) {
+            if let dest = segue.destination as? SettingsController {
+                dest.store = store
+            }
+        }
     }
 }
 
 // Snarfed from https://www.raywenderlich.com/548-mapkit-tutorial-getting-started
 extension MapViewController: MKMapViewDelegate {
+
+    // MARK: MKMapViewDelegate
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let polyline = overlay as? MKPolyline else {
+            return MKOverlayRenderer()
+        }
+        
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.lineWidth = 3.0
+        renderer.alpha = 0.5
+        renderer.strokeColor = UIColor.blue
+        
+        return renderer
+    }
+
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? EventMarker else { return nil }
         let identifier = "marker"
         var view: MKMarkerAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            as? MKMarkerAnnotationView {
+             as? MKMarkerAnnotationView {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {

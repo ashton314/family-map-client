@@ -17,6 +17,8 @@
 		2D4D8DB821B79EA700C3B955 /* SettingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D8DB721B79EA700C3B955 /* SettingToggle.swift */; };
 		2D4D8DBA21B7A48F00C3B955 /* ToggleSettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D8DB921B7A48F00C3B955 /* ToggleSettingViewCell.swift */; };
 		2D5DFECB21BC759500A563CA /* SubSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5DFECA21BC759500A563CA /* SubSettingCell.swift */; };
+		2D5DFECD21BCA71E00A563CA /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5DFECC21BCA71E00A563CA /* ColorPicker.swift */; };
+		2D5DFECF21BCDD1B00A563CA /* EventMarkerDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5DFECE21BCDD1B00A563CA /* EventMarkerDetail.swift */; };
 		2D5F87A921B8DF1E003AE1E8 /* PersonDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5F87A821B8DF1E003AE1E8 /* PersonDetailController.swift */; };
 		2D5F87AB21B8F683003AE1E8 /* EventViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5F87AA21B8F683003AE1E8 /* EventViewCell.swift */; };
 		2D5F87AD21B8F704003AE1E8 /* EventListingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5F87AC21B8F704003AE1E8 /* EventListingController.swift */; };
@@ -60,6 +62,8 @@
 		2D4D8DB721B79EA700C3B955 /* SettingToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingToggle.swift; sourceTree = "<group>"; };
 		2D4D8DB921B7A48F00C3B955 /* ToggleSettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSettingViewCell.swift; sourceTree = "<group>"; };
 		2D5DFECA21BC759500A563CA /* SubSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubSettingCell.swift; path = Controllers/SubSettingCell.swift; sourceTree = "<group>"; };
+		2D5DFECC21BCA71E00A563CA /* ColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorPicker.swift; path = "Family Map Client/Controllers/ColorPicker.swift"; sourceTree = "<group>"; };
+		2D5DFECE21BCDD1B00A563CA /* EventMarkerDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventMarkerDetail.swift; path = "Family Map Client/Controllers/EventMarkerDetail.swift"; sourceTree = "<group>"; };
 		2D5F87A821B8DF1E003AE1E8 /* PersonDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailController.swift; sourceTree = "<group>"; };
 		2D5F87AA21B8F683003AE1E8 /* EventViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewCell.swift; sourceTree = "<group>"; };
 		2D5F87AC21B8F704003AE1E8 /* EventListingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListingController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 		2D8CAF1D21A88D4B0097F032 = {
 			isa = PBXGroup;
 			children = (
+				2D5DFECE21BCDD1B00A563CA /* EventMarkerDetail.swift */,
+				2D5DFECC21BCA71E00A563CA /* ColorPicker.swift */,
 				2D8CAF2821A88D4B0097F032 /* Family Map Client */,
 				2D8CAF3D21A88D4E0097F032 /* Family Map ClientTests */,
 				2D8CAF4821A88D4E0097F032 /* Family Map ClientUITests */,
@@ -325,6 +331,7 @@
 				2D0427AC21A9CE9800CF5153 /* PersonViewController.swift in Sources */,
 				2D5F87AB21B8F683003AE1E8 /* EventViewCell.swift in Sources */,
 				2D43E68721AA5487009FB219 /* MemoryStore.swift in Sources */,
+				2D5DFECD21BCA71E00A563CA /* ColorPicker.swift in Sources */,
 				2DAEA35221BA1B6300A66DE3 /* EventDetailController.swift in Sources */,
 				2D8CAF2C21A88D4B0097F032 /* ViewController.swift in Sources */,
 				2D4D8DB821B79EA700C3B955 /* SettingToggle.swift in Sources */,
@@ -337,6 +344,7 @@
 				2D43E68521AA545A009FB219 /* Event.swift in Sources */,
 				2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */,
 				2DF0AC8421AE5CD800445B82 /* EventMarker.swift in Sources */,
+				2D5DFECF21BCDD1B00A563CA /* EventMarkerDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
