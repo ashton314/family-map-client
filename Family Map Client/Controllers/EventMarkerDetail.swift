@@ -10,5 +10,14 @@ import UIKit
 import MapKit
 
 class EventMarkerDetail: MKMarkerAnnotationView {
+    var eventModel: Event
 
+    init(annotation: MKAnnotation, reuseIdentifier: String, eventModel: Event) {
+        self.eventModel = eventModel
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

@@ -12,6 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
 
     var store: MemoryStore?
+    var lastLine: MKOverlay?
 
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var mainMap: MKMapView!
@@ -69,19 +70,10 @@ class MapViewController: UIViewController {
             let marker = EventMarker.fromEvent(event, store: store)
             mainMap.addAnnotation(marker)
         }
-
-        // let LAX = CLLocation(latitude: 33.9424955, longitude: -118.4080684)
-        // let JFK = CLLocation(latitude: 40.6397511, longitude: -73.7789256)
-
-        // var coordinates = [LAX.coordinate, JFK.coordinate]
-        // let geodesicPolyline = MKGeodesicPolyline(coordinates: &coordinates, count: 2)
-        // print("adding polyline")
-        // mainMap.addOverlay(geodesicPolyline)
-        // print("added polyline")
     }
 
-    let regionRadius: CLLocationDistance = 1000
     func centerMapOnLocation(location: CLLocation) {
+        let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mainMap.setRegion(coordinateRegion, animated: true)
     }
@@ -138,14 +130,24 @@ extension MapViewController: MKMapViewDelegate {
     // Gets called when I click a button
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.isKind(of: EventMarkerDetail.self) {
-            print("ooh... it's a thing I want")
+            let marker = view as! EventMarkerDetail
+            let eventModel = marker.eventModel
+            
+            let events: [Event] = store?.eventsForPerson(eventModel.personID) ?? []
+            var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+            let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
+            lastLine = line
+            mapView.addOverlay(line)
         }
     }
 
     // this gets called when I click *off* a button
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if view.isKind(of: EventMarkerDetail.self) {
-            print("ooh... it's a thing I want")
+            if let myLastLine = lastLine {
+                mapView.removeOverlay(myLastLine)
+                lastLine = nil
+            }
         }
     }
 
@@ -159,7 +161,8 @@ extension MapViewController: MKMapViewDelegate {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier)
+            // if annotation.isKind(of: EventMarker.self) {
+            view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier, eventModel: store!.events[annotation.eventID]!)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             let detailButton = UIButton(type: .detailDisclosure)
