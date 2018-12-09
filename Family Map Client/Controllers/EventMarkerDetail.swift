@@ -9,6 +9,6 @@
 import UIKit
 import MapKit
 
-class EventMarkerDetail: MKAnnotationView {
+class EventMarkerDetail: MKMarkerAnnotationView {
 
 }

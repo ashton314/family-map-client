@@ -100,6 +100,10 @@ class MemoryStore {
         return self.events.map({ $1 }).filter({ types.contains($0.eventType) })
     }
 
+    func eventsForPerson(_ personID: String) -> [Event] {
+        return self.eventsByPerson[personID]?.sorted(by: { $0.year < $1.year }) ?? []
+    }
+
     // returns a unique set of Strings that cover the event.eventType field
     func eventTypes() -> [String] {
         var types = Set<String>()

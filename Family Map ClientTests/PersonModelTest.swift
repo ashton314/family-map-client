@@ -36,6 +36,8 @@ class PersonModelTest: XCTestCase {
                                                       person_id: "foo_dad", owner_id: "me"),
                                      "event_6": Event(id: "event_6", event_type: "anathema", latitude: 42.1, longitude: 42.1, country: "Wakanda", city: "Capitol", year: "1994",
                                                       person_id: "foo_dad", owner_id: "me"),
+                                     "event_7": Event(id: "event_7", event_type: "death", latitude: 42.1, longitude: 42.1, country: "Wakanda", city: "Capitol", year: "1995",
+                                                      person_id: "foo_dad", owner_id: "me"),
                                      ],
                             authToken: "authytoken", rootPerson: "me", host: "127.0.0.1", port: "8080")
 
@@ -47,7 +49,6 @@ class PersonModelTest: XCTestCase {
     }
 
     func testTreeSides() {
-        // print(store.filterBySide(rootID: "me", side: .maternal))
         XCTAssertEqual(store.filterBySide(rootID: "me", side: .maternal), ["foo_mom","foo_mom_dad","foo_mom_mom"].map({ (i: String) -> Person in
             return store.people[i]!
         }))
@@ -59,9 +60,13 @@ class PersonModelTest: XCTestCase {
 
     func testEventTypeFiltering() {
         XCTAssertEqual(Set<Event>(store.getEventsWithTypes(["death", "birth"])),
-                       Set(["event_1", "event_2", "event_3", "event_4", "event_5"].map({ (i: String) -> Event in return store.events[i]! })))
+                       Set(["event_1", "event_2", "event_3", "event_4", "event_5", "event_7"].map({ (i: String) -> Event in return store.events[i]! })))
         XCTAssertEqual(store.getEventsWithTypes(["anathema"]),
                        ["event_6"].map({ (i: String) -> Event in return store.events[i]! }))
+    }
+
+    func testEventRetreval() {
+        XCTAssertEqual(store.eventsForPerson("foo_dad"), ["event_5", "event_6", "event_7"].map({ store.events[$0]! }))
     }
 
     func testPerformanceExample() {

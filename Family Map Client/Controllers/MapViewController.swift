@@ -135,6 +135,20 @@ extension MapViewController: MKMapViewDelegate {
         return renderer
     }
 
+    // Gets called when I click a button
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if view.isKind(of: EventMarkerDetail.self) {
+            print("ooh... it's a thing I want")
+        }
+    }
+
+    // this gets called when I click *off* a button
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if view.isKind(of: EventMarkerDetail.self) {
+            print("ooh... it's a thing I want")
+        }
+    }
+
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? EventMarker else { return nil }
@@ -145,7 +159,7 @@ extension MapViewController: MKMapViewDelegate {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             let detailButton = UIButton(type: .detailDisclosure)
