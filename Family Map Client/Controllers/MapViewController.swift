@@ -120,17 +120,20 @@ class MapViewController: UIViewController {
             mapView.addOverlay(line)
         }
     }
-    // func drawFamilyLines(for personID: String, mapView: MKMapView) {
-    //     guard let store = store else { return }
-    //     if store.showFamilyLine {
-    //         let events: [Event] = store.eventsForPerson(personID)
-    //         var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
-    //         let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
-    //         line.title = "familyLine"  // kludge, I know, but... deadlines, and this *is* my first app... sorry... :-/
-    //         lastLines += [line]
-    //         mapView.addOverlay(line)
-    //     }
-    // }
+    func drawFamilyLines(for personID: String, mapView: MKMapView, generation: Int) {
+        guard let store = store else { return }
+        if store.showFamilyLine {
+            let events: [Event] = store.eventsForPerson(personID)
+            var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+            let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
+
+            line.title = "familyLine"  // kludge, I know, but... deadlines, and this *is* my first app... sorry... :-/
+            line.subtitle = "\(generation)"
+
+            lastLines += [line]
+            mapView.addOverlay(line)
+        }
+    }
     func drawSpouseLines(for personID: String, mapView: MKMapView) {
         guard let store = store else { return }
         if store.showSpouseLine {
@@ -180,7 +183,7 @@ extension MapViewController: MKMapViewDelegate {
             
             let personID = eventModel.personID
             drawLifeLines(for: personID, mapView: mapView)
-//            drawFamilyLines(for: personID, mapView: mapView)
+            drawFamilyLines(for: personID, mapView: mapView, generation: 0)
             drawSpouseLines(for: personID, mapView: mapView)
         }
     }
