@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
 
     var store: MemoryStore?
-    var lastLine: MKOverlay?
+    var lastLines: [MKOverlay] = []
 
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var mainMap: MKMapView!
@@ -108,6 +108,44 @@ class MapViewController: UIViewController {
             }
         }
     }
+
+    func drawLifeLines(for personID: String, mapView: MKMapView) {
+        guard let store = store else { return }
+        if store.showLifeLine {
+            let events: [Event] = store.eventsForPerson(personID)
+            var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+            let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
+            line.title = "lifeLine"  // kludge, I know, but... deadlines, and this *is* my first app... sorry... :-/
+            lastLines += [line]
+            mapView.addOverlay(line)
+        }
+    }
+    // func drawFamilyLines(for personID: String, mapView: MKMapView) {
+    //     guard let store = store else { return }
+    //     if store.showFamilyLine {
+    //         let events: [Event] = store.eventsForPerson(personID)
+    //         var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+    //         let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
+    //         line.title = "familyLine"  // kludge, I know, but... deadlines, and this *is* my first app... sorry... :-/
+    //         lastLines += [line]
+    //         mapView.addOverlay(line)
+    //     }
+    // }
+    func drawSpouseLines(for personID: String, mapView: MKMapView) {
+        guard let store = store else { return }
+        if store.showSpouseLine {
+            if let spouseID = store.people[personID]?.spouse,
+               let my_birth: Event = store.eventsForPerson(personID)[0],
+               let spouse_birth: Event = store.eventsForPerson(spouseID)[0] {
+                let events = [my_birth, spouse_birth]
+                var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+                let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
+                line.title = "spouseLine"
+                lastLines += [line]
+                mapView.addOverlay(line)
+            }
+        }
+    }
 }
 
 // Snarfed from https://www.raywenderlich.com/548-mapkit-tutorial-getting-started
@@ -115,6 +153,7 @@ extension MapViewController: MKMapViewDelegate {
 
     // MARK: MKMapViewDelegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let store = store else { return MKOverlayRenderer() }
         guard let polyline = overlay as? MKPolyline else {
             return MKOverlayRenderer()
         }
@@ -122,7 +161,13 @@ extension MapViewController: MKMapViewDelegate {
         let renderer = MKPolylineRenderer(polyline: polyline)
         renderer.lineWidth = 3.0
         renderer.alpha = 0.5
-        renderer.strokeColor = UIColor.blue
+
+        switch polyline.title {
+        case "lifeLine": renderer.strokeColor = store.lifeLineColor
+        case "familyLine": renderer.strokeColor = store.familyLineColor
+        case "spouseLine": renderer.strokeColor = store.spouseLineColor
+        default: renderer.strokeColor = UIColor.blue
+        }
         
         return renderer
     }
@@ -132,24 +177,21 @@ extension MapViewController: MKMapViewDelegate {
         if view.isKind(of: EventMarkerDetail.self) {
             let marker = view as! EventMarkerDetail
             let eventModel = marker.eventModel
-            print("marker ident: \(marker.reuseIdentifier ?? "")")
-            print("Event model on click: \(eventModel)")
             
-            let events: [Event] = store?.eventsForPerson(eventModel.personID) ?? []
-            var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
-            let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
-            lastLine = line
-            mapView.addOverlay(line)
+            let personID = eventModel.personID
+            drawLifeLines(for: personID, mapView: mapView)
+//            drawFamilyLines(for: personID, mapView: mapView)
+            drawSpouseLines(for: personID, mapView: mapView)
         }
     }
 
     // this gets called when I click *off* a button
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if view.isKind(of: EventMarkerDetail.self) {
-            if let myLastLine = lastLine {
-                mapView.removeOverlay(myLastLine)
-                lastLine = nil
+            for line in lastLines {
+                mapView.removeOverlay(line)
             }
+            lastLines = []
         }
     }
 
