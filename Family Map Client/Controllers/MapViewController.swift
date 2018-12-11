@@ -132,6 +132,8 @@ extension MapViewController: MKMapViewDelegate {
         if view.isKind(of: EventMarkerDetail.self) {
             let marker = view as! EventMarkerDetail
             let eventModel = marker.eventModel
+            print("marker ident: \(marker.reuseIdentifier ?? "")")
+            print("Event model on click: \(eventModel)")
             
             let events: [Event] = store?.eventsForPerson(eventModel.personID) ?? []
             var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
@@ -154,7 +156,7 @@ extension MapViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? EventMarker else { return nil }
-        let identifier = "marker"
+        let identifier = "marker-\(annotation.eventID)"
         var view: MKMarkerAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
              as? MKMarkerAnnotationView {
