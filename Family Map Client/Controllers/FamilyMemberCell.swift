@@ -13,6 +13,8 @@ class FamilyMemberCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var relationLabel: UILabel!
     
+    var basePerson: Person?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -25,5 +27,6 @@ class FamilyMemberCell: UITableViewCell {
     func updateFrom(person: Person, relation: String) {
         self.nameLabel.text = person.fullName()
         self.relationLabel.text = relation
+        self.basePerson = person
     }
 }

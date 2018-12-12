@@ -315,6 +315,7 @@
                                 <connections>
                                     <outlet property="nameLabel" destination="UEU-P9-Sol" id="YOg-Yb-xJo"/>
                                     <outlet property="relationLabel" destination="Hls-xb-Ri5" id="Glt-ND-n4i"/>
+                                    <segue destination="VhI-gb-0PA" kind="show" id="OgM-op-7uO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1089,4 +1090,7 @@
         <image name="custom_filter" width="65" height="66"/>
         <image name="custom_settings" width="45" height="46"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="OgM-op-7uO"/>
+    </inferredMetricsTieBreakers>
 </document>

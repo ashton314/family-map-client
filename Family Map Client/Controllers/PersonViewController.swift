@@ -10,6 +10,10 @@ import UIKit
 
 class PersonViewController: UIViewController {
 
+    //------------------------------------------------
+    //           NO LONGER IN USE
+    //------------------------------------------------
+
     var store: MemoryStore?
 
     var currentPersonID: String?
