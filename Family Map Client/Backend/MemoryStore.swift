@@ -95,6 +95,19 @@ class MemoryStore {
         }
     }
 
+    func getFirstEvent(_ personID: String) -> Event? {
+        let events = self.eventsForPerson(personID)
+        return events.count > 0 ? events[0] : nil
+    }
+    func getParents(fromPerson personID: String) -> (String, String)? {
+        if let me = self.people[personID] {
+            return (me.father, me.mother) // since when did you become me motha?
+        }
+        else {
+            return nil          // I'd stop y'er bawlin--- Hey! Who asked you?!
+        }
+    }
+
     // returns events where type is given in the array
     func getEventsWithTypes(_ types: [String]) -> [Event] {
         return self.events.map({ $1 }).filter({ types.contains($0.eventType) })

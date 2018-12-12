@@ -109,29 +109,43 @@ class MapViewController: UIViewController {
         }
     }
 
+    func drawLine(mapView: MKMapView, coordinates: [CLLocationCoordinate2D], title: String? = nil, subtitle: String? = nil) {
+        var coords = coordinates
+        let line = MKGeodesicPolyline(coordinates: &coords, count: coordinates.count)
+        line.title = title
+        line.subtitle = subtitle
+        lastLines += [line]
+        mapView.addOverlay(line)
+    }
     func drawLifeLines(for personID: String, mapView: MKMapView) {
         guard let store = store else { return }
         if store.showLifeLine {
             let events: [Event] = store.eventsForPerson(personID)
-            var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
-            let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
-            line.title = "lifeLine"  // kludge, I know, but... deadlines, and this *is* my first app... sorry... :-/
-            lastLines += [line]
-            mapView.addOverlay(line)
+            let coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+            drawLine(mapView: mapView, coordinates: coordinates, title: "lifeLine")
         }
     }
     func drawFamilyLines(for personID: String, mapView: MKMapView, generation: Int) {
         guard let store = store else { return }
-        if store.showFamilyLine {
-            let events: [Event] = store.eventsForPerson(personID)
-            var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
-            let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
+        guard store.showFamilyLine else { return }
 
-            line.title = "familyLine"  // kludge, I know, but... deadlines, and this *is* my first app... sorry... :-/
-            line.subtitle = "\(generation)"
+        guard let parents = store.getParents(fromPerson: personID) else { return }
+        let (father, mother) = parents
+        print("father: \(father)")
+        let me = personID
+        guard let my_birth: Event = store.getFirstEvent(me) else { return }
 
-            lastLines += [line]
-            mapView.addOverlay(line)
+        if let father_birth = store.getFirstEvent(father) {
+            let events: [Event] = [my_birth, father_birth]
+            let coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+            drawLine(mapView: mapView, coordinates: coordinates, title: "familyLine", subtitle: "\(generation)")
+            drawFamilyLines(for: father, mapView: mapView, generation: generation + 1)
+        }
+        if let mother_birth = store.getFirstEvent(mother) {
+            let events: [Event] = [my_birth, mother_birth]
+            let coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+            drawLine(mapView: mapView, coordinates: coordinates, title: "familyLine", subtitle: "\(generation)")
+            drawFamilyLines(for: mother, mapView: mapView, generation: generation + 1)
         }
     }
     func drawSpouseLines(for personID: String, mapView: MKMapView) {
@@ -141,11 +155,8 @@ class MapViewController: UIViewController {
                let my_birth: Event = store.eventsForPerson(personID)[0],
                let spouse_birth: Event = store.eventsForPerson(spouseID)[0] {
                 let events = [my_birth, spouse_birth]
-                var coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
-                let line = MKGeodesicPolyline(coordinates: &coordinates, count: coordinates.count)
-                line.title = "spouseLine"
-                lastLines += [line]
-                mapView.addOverlay(line)
+                let coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
+                drawLine(mapView: mapView, coordinates: coordinates, title: "spouseLine")
             }
         }
     }
@@ -167,8 +178,12 @@ extension MapViewController: MKMapViewDelegate {
 
         switch polyline.title {
         case "lifeLine": renderer.strokeColor = store.lifeLineColor
-        case "familyLine": renderer.strokeColor = store.familyLineColor
         case "spouseLine": renderer.strokeColor = store.spouseLineColor
+        case "familyLine":
+            renderer.strokeColor = store.familyLineColor
+            let power = Int(polyline.subtitle ?? "0") ?? 0
+            let denominator = Double(power == 0 ? 1 : 2 << power)
+            renderer.lineWidth = CGFloat(3.0 * (1.0 / denominator))
         default: renderer.strokeColor = UIColor.blue
         }
         
