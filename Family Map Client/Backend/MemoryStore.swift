@@ -152,7 +152,6 @@ class MemoryStore {
             if index[event.personID] == nil {
                 index[event.personID] = []
             }
-            print("transposing event \(event.eventID) for person \(event.personID)")
             index[event.personID]!.append(event)
         }
         return index

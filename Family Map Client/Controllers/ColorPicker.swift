@@ -9,8 +9,7 @@
 import UIKit
 
 class ColorPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
-    let colors: [String:UIColor] = ["Blue": .blue, "Green": .green, "Red": .red,
-                                    "Yellow": .yellow, "Black": .black];
+    let colors: [String:UIColor] = ["Black": .black, "Blue": .blue, "Brown": .brown, "Cyan": .cyan, "Gray": .gray, "Dark Gray": .darkGray, "Light Gray": .lightGray, "Magenta": .magenta, "Orange": .orange, "Purple": .purple, "Red": .red, "White": .white, "Yellow": .yellow, "Green": .green];
     var selectedCallback: ((Any, Any) -> Void)?
 
     func setSelectedCallback(_ callback: @escaping (Any, Any) -> Void) {
@@ -40,6 +39,26 @@ class ColorPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
             return colors.keys.sorted()[row]
         } else {
             return "Second \(row)"
+        }
+    }
+
+    static func humanizeColor(_ color: UIColor) -> String {
+        switch color {
+        case .black: return "Black"
+        case .blue: return "Blue"
+        case .brown: return "Brown"
+        case .cyan: return "Cyan"
+        case .gray: return "Gray"
+        case .darkGray: return "Dark Gray"
+        case .lightGray: return "Light Gray"
+        case .magenta: return "Magenta"
+        case .orange: return "Orange"
+        case .purple: return "Purple"
+        case .red: return "Red"
+        case .white: return "White"
+        case .yellow: return "Yellow"
+        case .green: return "Green"
+        default: return "Unknown Color"
         }
     }
 }

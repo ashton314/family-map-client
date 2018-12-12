@@ -33,6 +33,7 @@ class SettingsController: UITableViewController {
     let familyLineColorPickerPath = IndexPath(row: 3, section: 1)
     let spouseLineColorPickerPath = IndexPath(row: 5, section: 1)
 
+    // These variables enable the accordion-like behavior
     var isLifePickerShown: Bool = false {
         didSet {
             lifeLineColorPicker.isHidden = !isLifePickerShown
@@ -63,12 +64,18 @@ class SettingsController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        guard let store = store else { return }
+
+        lifeLineColor.text = ColorPicker.humanizeColor(store.lifeLineColor)
+        familyTreeColor.text = ColorPicker.humanizeColor(store.familyLineColor)
+        spouseLineColor.text = ColorPicker.humanizeColor(store.spouseLineColor)
+
         let lifeLineColorPicker = self.lifeLineColorPicker as! ColorPicker
         lifeLineColorPicker.delegate = lifeLineColorPicker
         lifeLineColorPicker.dataSource = lifeLineColorPicker
         lifeLineColorPicker.setSelectedCallback({ (name, color) in self.lifeLineColor.text = name as? String; self.store?.lifeLineColor = color as! UIColor })
 
-        // TODO: check that these work!
         let familyLineColorPicker = self.familyLineColorPicker as! ColorPicker
         familyLineColorPicker.delegate = familyLineColorPicker
         familyLineColorPicker.dataSource = familyLineColorPicker
@@ -80,6 +87,7 @@ class SettingsController: UITableViewController {
         spouseLineColorPicker.setSelectedCallback({ (name, color) in self.spouseLineColor.text = name as? String; self.store?.spouseLineColor = color as! UIColor })
     }
 
+    // These methods make it possible to collapse the picker wheels when not in use
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
         case (lifeLineColorPickerPath.section, lifeLineColorPickerPath.row): return isLifePickerShown ? 216.0 : 0.0

@@ -131,7 +131,6 @@ class MapViewController: UIViewController {
 
         guard let parents = store.getParents(fromPerson: personID) else { return }
         let (father, mother) = parents
-        print("father: \(father)")
         let me = personID
         guard let my_birth: Event = store.getFirstEvent(me) else { return }
 
