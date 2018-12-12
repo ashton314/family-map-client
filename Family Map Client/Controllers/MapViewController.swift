@@ -233,9 +233,16 @@ extension MapViewController: MKMapViewDelegate {
             view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier, eventModel: store!.events[annotation.eventID]!)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            let detailButton = UIButton(type: .detailDisclosure)
-            view.rightCalloutAccessoryView = detailButton
+
         }
+        let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
+                                                size: CGSize(width: 30, height: 30)))
+
+        let person = store?.people[annotation.personID]
+
+        mapsButton.setBackgroundImage(UIImage(named: person?.gender == "m" ? "male_outline" : "female_outline"), for: UIControl.State())
+        view.rightCalloutAccessoryView = mapsButton
+        view.markerTintColor = annotation.markerTintColor
         return view
     }
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {

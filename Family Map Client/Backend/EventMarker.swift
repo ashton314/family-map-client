@@ -40,9 +40,16 @@ class EventMarker: NSObject, MKAnnotation {
         }
     }
 
-
     var subtitle: String? {
         return locationName
+    }
+
+    var markerTintColor: UIColor {
+        let eventTypes = store.eventTypes()
+        let colors: [UIColor] = [.blue, .green, .red, .purple, .lightGray, .orange, .brown, .cyan, .gray, .magenta, .darkGray, .white, .yellow, .black];
+        let idx: Int = eventTypes.firstIndex(of: self.discipline) ?? 0
+        print("idx: \(idx)")
+        return colors[idx % colors.count]
     }
 
     static func fromEvent(_ event: Event, store: MemoryStore) -> EventMarker {
