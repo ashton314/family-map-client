@@ -32,6 +32,8 @@
 		2D9C5BE321A8EAEF00CF93FB /* ServerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */; };
 		2DAEA35221BA1B6300A66DE3 /* EventDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAEA35121BA1B6300A66DE3 /* EventDetailController.swift */; };
 		2DF0AC8421AE5CD800445B82 /* EventMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF0AC8321AE5CD800445B82 /* EventMarker.swift */; };
+		2DF5F0B021C0D1340091F934 /* FamilyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF5F0AF21C0D1340091F934 /* FamilyViewController.swift */; };
+		2DF5F0B221C0D2FD0091F934 /* FamilyMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF5F0B121C0D2FD0091F934 /* FamilyMemberCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		2D9C5BE221A8EAEF00CF93FB /* ServerProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProxy.swift; sourceTree = "<group>"; };
 		2DAEA35121BA1B6300A66DE3 /* EventDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventDetailController.swift; path = Controllers/EventDetailController.swift; sourceTree = "<group>"; };
 		2DF0AC8321AE5CD800445B82 /* EventMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventMarker.swift; path = "Family Map Client/Backend/EventMarker.swift"; sourceTree = SOURCE_ROOT; };
+		2DF5F0AF21C0D1340091F934 /* FamilyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyViewController.swift; sourceTree = "<group>"; };
+		2DF5F0B121C0D2FD0091F934 /* FamilyMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyMemberCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +172,8 @@
 		2D9C5BE421A8ED5400CF93FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2DF5F0AF21C0D1340091F934 /* FamilyViewController.swift */,
+				2DF5F0B121C0D2FD0091F934 /* FamilyMemberCell.swift */,
 				2D5DFECC21BCA71E00A563CA /* ColorPicker.swift */,
 				2D5DFECE21BCDD1B00A563CA /* EventMarkerDetail.swift */,
 				2D5F87AA21B8F683003AE1E8 /* EventViewCell.swift */,
@@ -327,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D43E68321AA5448009FB219 /* Person.swift in Sources */,
+				2DF5F0B221C0D2FD0091F934 /* FamilyMemberCell.swift in Sources */,
 				2D4D8DBA21B7A48F00C3B955 /* ToggleSettingViewCell.swift in Sources */,
 				2D0427AC21A9CE9800CF5153 /* PersonViewController.swift in Sources */,
 				2D5F87AB21B8F683003AE1E8 /* EventViewCell.swift in Sources */,
@@ -340,6 +347,7 @@
 				2D4D8DB621B79B7100C3B955 /* SettingsController.swift in Sources */,
 				2D5DFECB21BC759500A563CA /* SubSettingCell.swift in Sources */,
 				2D5F87AD21B8F704003AE1E8 /* EventListingController.swift in Sources */,
+				2DF5F0B021C0D1340091F934 /* FamilyViewController.swift in Sources */,
 				2D5F87A921B8DF1E003AE1E8 /* PersonDetailController.swift in Sources */,
 				2D43E68521AA545A009FB219 /* Event.swift in Sources */,
 				2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */,

@@ -108,6 +108,16 @@ class MemoryStore {
         }
     }
 
+    func getChildren(personID: String) -> [Person] {
+        var children: [Person] = []
+        for (_, person) in people {
+            if person.father == personID || person.mother == personID {
+                children.append(person)
+            }
+        }
+        return children
+    }
+
     // returns events where type is given in the array
     func getEventsWithTypes(_ types: [String]) -> [Event] {
         return self.events.map({ $1 }).filter({ types.contains($0.eventType) })

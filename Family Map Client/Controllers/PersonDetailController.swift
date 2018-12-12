@@ -24,7 +24,6 @@ class PersonDetailController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let currentPersonID = currentPersonID,
            let person = store!.people[currentPersonID] {
-            print("Setting name label: \(person.firstName) \(person.lastName)")
             personName.text   = "\(person.lastName), \(person.firstName)"
             personGender.text = person.gender == "m" ? "Male" : "Female"
         }
@@ -37,9 +36,13 @@ class PersonDetailController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination.isKind(of: EventListingController.self) {
             if let dest = segue.destination as? EventListingController {
-                print("setting events in target with id \(currentPersonID)")
                 dest.events = store?.eventsByPerson[currentPersonID!]
-                print(dest.events)
+            }
+        }
+        else if segue.destination.isKind(of: FamilyViewController.self) {
+            if let dest = segue.destination as? FamilyViewController {
+                dest.store  = store
+                dest.person = store?.people[currentPersonID!]
             }
         }
     }
