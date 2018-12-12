@@ -37,6 +37,7 @@ class PersonDetailController: UITableViewController {
         if segue.destination.isKind(of: EventListingController.self) {
             if let dest = segue.destination as? EventListingController {
                 dest.events = store?.eventsByPerson[currentPersonID!]
+                dest.store = store
             }
         }
         else if segue.destination.isKind(of: FamilyViewController.self) {

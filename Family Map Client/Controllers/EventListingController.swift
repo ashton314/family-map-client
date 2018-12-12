@@ -11,6 +11,7 @@ import UIKit
 class EventListingController: UITableViewController {
 
     var events: [Event]?
+    var store: MemoryStore?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,8 @@ class EventListingController: UITableViewController {
         print("in updater")
 
         guard let events = events else { print("awe snap... no events"); return cell }
-        let event = events[indexPath.row]
+        let sorted_events = events.sorted(by: { $0.year < $1.year })
+        let event = sorted_events[indexPath.row]
 
         print("we got an event"); print(event)
         cell.update(with: event)
