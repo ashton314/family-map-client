@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class SettingsController: UITableViewController {
 
@@ -71,6 +72,13 @@ class SettingsController: UITableViewController {
         familyTreeColor.text = ColorPicker.humanizeColor(store.familyLineColor)
         spouseLineColor.text = ColorPicker.humanizeColor(store.spouseLineColor)
 
+        lifeLineSwitch.isOn = store.showLifeLine
+        familyTreeSwitch.isOn = store.showFamilyLine
+        spouseLineSwitch.isOn = store.showSpouseLine
+
+        let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
+        mapTypeRadio.selectedSegmentIndex = mapTypes.firstIndex(of: store.mapType)!
+
         let lifeLineColorPicker = self.lifeLineColorPicker as! ColorPicker
         lifeLineColorPicker.delegate = lifeLineColorPicker
         lifeLineColorPicker.dataSource = lifeLineColorPicker
@@ -114,5 +122,29 @@ class SettingsController: UITableViewController {
             tableView.endUpdates()
         default: break
         }
+    }
+    
+    @IBAction func mapTypeChanged(_ sender: UISegmentedControl) {
+        guard let store = store else { return }
+        let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
+        store.mapType = mapTypes[sender.selectedSegmentIndex]
+    }
+
+    @IBAction func resyncData(_ sender: Any) {
+    }
+    @IBAction func logOut(_ sender: Any) {
+    }
+    
+    @IBAction func toggleLifeLine(_ sender: UISwitch) {
+        guard let store = store else { return }
+        store.showLifeLine = sender.isOn
+    }
+    @IBAction func toggleFamilyLine(_ sender: UISwitch) {
+        guard let store = store else { return }
+        store.showFamilyLine = sender.isOn
+    }
+    @IBAction func toggleSpouseLine(_ sender: UISwitch) {
+        guard let store = store else { return }
+        store.showSpouseLine = sender.isOn
     }
 }

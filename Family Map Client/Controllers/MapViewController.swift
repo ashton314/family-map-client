@@ -28,6 +28,7 @@ class MapViewController: UIViewController {
         print("map coming online...")
         if let store = store {
             print("we have a data store")
+            self.updateMap()
             if store.people.count == 0 {
                 let (ok, message) = store.refreshPeople()
                 if !ok {
@@ -39,7 +40,7 @@ class MapViewController: UIViewController {
                     (ok, resp) in
                     guard ok else {return}
                     
-                    self.updateMap()
+                    self.updateEvents()
                 }
                 if !ok2 {
                     print("Problem updating list of events: \(message2)")
@@ -59,9 +60,15 @@ class MapViewController: UIViewController {
         store?.authToken = ""
         self.performSegue(withIdentifier: "doAuth", sender: nil)
     }
-    
+
     func updateMap() {
-        print("Updating map points...")
+        guard let store = store else {return}
+
+        print("Setting map type to \(store.mapType)")
+        mainMap.mapType = store.mapType
+    }
+    
+    func updateEvents() {
 //            let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
 //            centerMapOnLocation(location: initialLocation)
         guard let store = store else {return}

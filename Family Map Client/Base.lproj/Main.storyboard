@@ -761,6 +761,9 @@
                                                         <segment title="Satelite"/>
                                                         <segment title="Hybrid"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="mapTypeChanged:" destination="tEM-9F-ZQj" eventType="valueChanged" id="4Bs-P7-swh"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
@@ -784,6 +787,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U38-gH-Nu6">
                                                     <rect key="frame" x="310" y="6" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="toggleLifeLine:" destination="tEM-9F-ZQj" eventType="valueChanged" id="dnh-0U-Ngz"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Life Story" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPl-5k-isx">
                                                     <rect key="frame" x="16" y="11" width="73" height="21"/>
@@ -842,6 +848,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afx-Sc-Wx1">
                                                     <rect key="frame" x="310" y="6" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="toggleFamilyLine:" destination="tEM-9F-ZQj" eventType="valueChanged" id="jKK-zo-bUu"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -887,6 +896,9 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8RZ-Fp-Gkl">
                                                     <rect key="frame" x="310" y="5" width="49" height="31"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <connections>
+                                                        <action selector="toggleSpouseLine:" destination="tEM-9F-ZQj" eventType="valueChanged" id="nIG-U0-LCP"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -926,6 +938,9 @@
                                                     <state key="normal" title="Resync Data">
                                                         <color key="titleColor" red="1" green="0.060358078400000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="resyncData:" destination="tEM-9F-ZQj" eventType="touchUpInside" id="u6O-cb-CDL"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -946,6 +961,9 @@
                                                     <rect key="frame" x="158" y="6" width="61" height="33"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <state key="normal" title="Log Out"/>
+                                                    <connections>
+                                                        <action selector="logOut:" destination="tEM-9F-ZQj" eventType="touchUpInside" id="grb-06-x33"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
