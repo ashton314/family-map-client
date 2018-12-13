@@ -1169,8 +1169,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Search" id="GVx-Go-QQ6"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="2vV-Qa-IWV" id="1Im-RP-RmL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eep-9R-axH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="2vV-Qa-IWV">
+                    <connections>
+                        <outlet property="delegate" destination="md3-8Z-WcO" id="qGM-pP-5GN"/>
+                        <outlet property="searchContentsController" destination="md3-8Z-WcO" id="FMu-QJ-gke"/>
+                        <outlet property="searchResultsDataSource" destination="md3-8Z-WcO" id="sIk-v2-prg"/>
+                        <outlet property="searchResultsDelegate" destination="md3-8Z-WcO" id="1VX-5c-c8P"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="3522" y="742"/>
         </scene>

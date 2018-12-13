@@ -11,9 +11,26 @@ import UIKit
 class SearchViewController: UITableViewController {
 
     var store: MemoryStore?
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    var search_text: String = ""
+
+    var filtered_people: [String:Person] {
+        return store?.people.filter({_, person in search_text == "" || person.fullName().lowercased().contains(search_text.lowercased()) }) ?? [:]
+    }
+    var filtered_events: [String:Event] {
+        return store?.events.filter({_, event in search_text == "" || "\(event.city) \(event.country) \(event.eventType) \(event.year)".lowercased().contains(search_text.lowercased()) }) ?? [:]
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -21,22 +38,24 @@ class SearchViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1                // FIXME
+        return section == 0 ? filtered_people.count : filtered_events.count
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let titles = ["People", "Events"]
+        return titles[section]
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let store = store else { fatalError("no store supplied") }
-
         if indexPath.section == 0 { // people
-            let all_people = store.people.values.sorted(by: { $0.personID < $1.personID })
+            let all_people = filtered_people.values.sorted(by: { $0.personID < $1.personID })
             let cell = tableView.dequeueReusableCell(withIdentifier: "familyMemberCell", for: indexPath) as! FamilyMemberCell
 
             cell.updateFrom(person: all_people[indexPath.row], relation: "") // TODO: maybe compute relationship to root person for fun? Naw... this thing's due tomorrow.
             return cell         // It's been an interesting night, believe me
         }
         else if indexPath.section == 1 { // events
-            let all_events = store.events.values.sorted(by: { $0.eventID < $1.eventID })
+            let all_events = filtered_events.values.sorted(by: { $0.eventID < $1.eventID })
             let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventViewCell
 
             cell.update(with: all_events[indexPath.row])
@@ -69,5 +88,13 @@ class SearchViewController: UITableViewController {
             dest.title = "\(person.fullName())"
             dest.currentPersonID = person.personID
         }
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        search_text = searchController.searchBar.text!
+        tableView.reloadData()
     }
 }
