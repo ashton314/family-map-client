@@ -18,6 +18,7 @@ class EventMarker: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     let personID: String
     let eventID: String
+    var event: Event?
     
     init(locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, personID: String, eventID: String, store: MemoryStore) {
 //        self.title = title
@@ -33,7 +34,7 @@ class EventMarker: NSObject, MKAnnotation {
     
     var title: String? {
         if let person = store.people[personID] {
-            return "\(person.fullName()): \(discipline)"
+            return "\(person.fullName()): \(discipline), \(event?.year ?? "")"
         }
         else {
             return discipline
@@ -48,13 +49,14 @@ class EventMarker: NSObject, MKAnnotation {
         let eventTypes = store.eventTypes()
         let colors: [UIColor] = [.blue, .green, .red, .purple, .lightGray, .orange, .brown, .cyan, .gray, .magenta, .darkGray, .white, .yellow, .black];
         let idx: Int = eventTypes.firstIndex(of: self.discipline) ?? 0
-        print("idx: \(idx)")
         return colors[idx % colors.count]
     }
 
     static func fromEvent(_ event: Event, store: MemoryStore) -> EventMarker {
-        return EventMarker(locationName: "\(event.city), \(event.country)", discipline: event.eventType,
-                           coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude),
-                           personID: event.personID, eventID: event.eventID, store: store)
+        var marker = EventMarker(locationName: "\(event.city), \(event.country)", discipline: event.eventType,
+                                coordinate: CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude),
+                                personID: event.personID, eventID: event.eventID, store: store)
+        marker.event = event
+        return marker
     }
 }

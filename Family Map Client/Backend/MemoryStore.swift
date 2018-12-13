@@ -15,7 +15,9 @@ enum TreeSide {
 
 class MemoryStore {
     var people: [String:Person]
-    var events: [String:Event]
+    private var _rawEvents: [String:Event]
+
+    var events: [String:Event] { return filterEvents(_rawEvents) }
     var eventsByPerson: [String:[Event]]
     var authToken: String
     var rootPersonID: String
@@ -25,20 +27,27 @@ class MemoryStore {
     // Settings
     var mapType: MKMapType = .standard
     var lifeLineColor: UIColor = .blue
-    var familyLineColor: UIColor = .gray
+    var familyLineColor: UIColor = .lightGray
     var spouseLineColor: UIColor = .green
     var showLifeLine = true
     var showFamilyLine = true
     var showSpouseLine = true
 
+    // Filters
+    var showMaternal = true
+    var showPaternal = true
+    var showMale = true
+    var showFemale = true
+    var showEventTypes: [String:Bool] = [:]
+
     init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
         self.people = people
-        self.events = events
+        self._rawEvents = events
         self.authToken = authToken
         self.rootPersonID = rootPerson
         self.host = host
         self.port = port
-        self.eventsByPerson = MemoryStore.transposeEventIndex(events)
+        self.eventsByPerson = MemoryStore.transposeEventIndex(_rawEvents)
     }
 
     func refreshPeople(callback: @escaping (Bool, Any) -> Void = {_,_ in } ) -> (Bool, String) {
@@ -76,9 +85,12 @@ class MemoryStore {
                 return
             }
             if let events = resp as? [Event] {
-                self.events = Dictionary(uniqueKeysWithValues: events.map { ($0.eventID, $0) })
-                self.eventsByPerson = MemoryStore.transposeEventIndex(self.events)
+                self._rawEvents = Dictionary(uniqueKeysWithValues: events.map { ($0.eventID, $0) })
+                self.eventsByPerson = MemoryStore.transposeEventIndex(self._rawEvents)
                 print("got events")
+
+                self.showEventTypes = Dictionary(uniqueKeysWithValues: self.eventTypes().map({ ($0, true) }))
+
                 callback(ok, resp)
             }
             else {
@@ -116,6 +128,32 @@ class MemoryStore {
             }
         }
         return children
+    }
+
+    func filterEvents(_ eventList: [String:Event]) -> [String:Event] {
+        return eventList.filter(
+          {key, event in
+              if isMaternal(event) && !showMaternal { return false }
+              if isPaternal(event) && !showPaternal { return false }
+              if isMale(event) && !showMale { return false }
+              if isFemale(event) && !showFemale { return false }
+              return true
+          })
+    }
+
+    func isMaternal(_ event: Event) -> Bool {
+        let moms_family = filterBySide(rootID: rootPersonID, side: .maternal)
+        return moms_family.contains(where: { $0.personID == event.personID })
+    }
+    func isPaternal(_ event: Event) -> Bool {
+        let dads_family = filterBySide(rootID: rootPersonID, side: .paternal)
+        return dads_family.contains(where: { $0.personID == event.personID })
+    }
+    func isMale(_ event: Event) -> Bool {
+        return people[event.personID]!.gender == "m"
+    }
+    func isFemale(_ event: Event) -> Bool {
+        return people[event.personID]!.gender == "f"
     }
 
     // returns events where type is given in the array

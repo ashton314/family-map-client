@@ -114,6 +114,11 @@ class MapViewController: UIViewController {
                 dest.store = store
             }
         }
+        else if segue.destination.isKind(of: FilterViewController.self) {
+            if let dest = segue.destination as? FilterViewController {
+                dest.store = store
+            }
+        }
     }
 
     func drawLine(mapView: MKMapView, coordinates: [CLLocationCoordinate2D], title: String? = nil, subtitle: String? = nil) {
@@ -219,7 +224,6 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? EventMarker else { return nil }
         let identifier = "marker-\(annotation.eventID)"
@@ -229,12 +233,11 @@ extension MapViewController: MKMapViewDelegate {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            // if annotation.isKind(of: EventMarker.self) {
             view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier, eventModel: store!.events[annotation.eventID]!)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-
         }
+
         let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
                                                 size: CGSize(width: 30, height: 30)))
 
