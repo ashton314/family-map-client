@@ -132,13 +132,24 @@ class MemoryStore {
 
     func filterEvents(_ eventList: [String:Event]) -> [String:Event] {
         return eventList.filter(
-          {key, event in
+          {_, event in
               if isMaternal(event) && !showMaternal { return false }
               if isPaternal(event) && !showPaternal { return false }
               if isMale(event) && !showMale { return false }
               if isFemale(event) && !showFemale { return false }
               return showEventTypes[event.eventType] ?? true
           })
+    }
+
+    func filterEvents(flatList eventList: [Event]) -> [Event] {
+        return eventList.filter(
+            {event in
+                if isMaternal(event) && !showMaternal { return false }
+                if isPaternal(event) && !showPaternal { return false }
+                if isMale(event) && !showMale { return false }
+                if isFemale(event) && !showFemale { return false }
+                return showEventTypes[event.eventType] ?? true
+        })
     }
 
     func isMaternal(_ event: Event) -> Bool {
@@ -162,7 +173,7 @@ class MemoryStore {
     }
 
     func eventsForPerson(_ personID: String) -> [Event] {
-        return self.eventsByPerson[personID]?.sorted(by: { $0.year < $1.year }) ?? []
+        return filterEvents(flatList: self.eventsByPerson[personID]?.sorted(by: { $0.year < $1.year }) ?? [])
     }
 
     // returns a unique set of Strings that cover the event.eventType field

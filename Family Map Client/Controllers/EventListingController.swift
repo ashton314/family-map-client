@@ -37,13 +37,11 @@ class EventListingController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventViewCell
 
-        print("in updater")
-
         guard let events = events else { print("awe snap... no events"); return cell }
+
         let sorted_events = events.sorted(by: { $0.year < $1.year })
         let event = sorted_events[indexPath.row]
 
-        print("we got an event"); print(event)
         cell.update(with: event)
 
         return cell

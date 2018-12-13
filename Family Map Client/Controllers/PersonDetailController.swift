@@ -36,7 +36,7 @@ class PersonDetailController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination.isKind(of: EventListingController.self) {
             if let dest = segue.destination as? EventListingController {
-                dest.events = store?.eventsByPerson[currentPersonID!]
+                dest.events = store?.eventsForPerson(currentPersonID!)
                 dest.store = store
             }
         }
