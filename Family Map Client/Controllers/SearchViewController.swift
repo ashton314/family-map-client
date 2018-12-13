@@ -48,17 +48,19 @@ class SearchViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 { // people
-            let all_people = filtered_people.values.sorted(by: { $0.personID < $1.personID })
+            let person = filtered_people.values.sorted(by: { $0.personID < $1.personID })[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "familyMemberCell", for: indexPath) as! FamilyMemberCell
 
-            cell.updateFrom(person: all_people[indexPath.row], relation: "") // TODO: maybe compute relationship to root person for fun? Naw... this thing's due tomorrow.
+            cell.updateFrom(person: person, relation: person.gender == "m" ? "male" : "female")
             return cell         // It's been an interesting night, believe me
         }
         else if indexPath.section == 1 { // events
-            let all_events = filtered_events.values.sorted(by: { $0.eventID < $1.eventID })
             let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventViewCell
+            let event = filtered_events.values.sorted(by: { $0.eventID < $1.eventID })[indexPath.row]
+            let person = store!.people[event.personID]!
 
-            cell.update(with: all_events[indexPath.row])
+            cell.update(with: event)
+            cell.titleLabel.text = "\(event.eventType): \(person.fullName()) (\(event.year))"
 
             return cell
         }
