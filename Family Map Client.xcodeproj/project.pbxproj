@@ -11,6 +11,7 @@
 		2D02433221C1A84400F92F0B /* FilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D02433121C1A84400F92F0B /* FilterViewCell.swift */; };
 		2D02433421C1A85F00F92F0B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D02433321C1A85F00F92F0B /* FilterViewController.swift */; };
 		2D02433621C2022700F92F0B /* FilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D02433521C2022700F92F0B /* FilterTests.swift */; };
+		2D02433821C21B8400F92F0B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D02433721C21B8400F92F0B /* SearchViewController.swift */; };
 		2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0427A921A9C89B00CF5153 /* MapViewController.swift */; };
 		2D0427AC21A9CE9800CF5153 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0427AB21A9CE9800CF5153 /* PersonViewController.swift */; };
 		2D43E68321AA5448009FB219 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D43E68221AA5448009FB219 /* Person.swift */; };
@@ -61,6 +62,7 @@
 		2D02433121C1A84400F92F0B /* FilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewCell.swift; sourceTree = "<group>"; };
 		2D02433321C1A85F00F92F0B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		2D02433521C2022700F92F0B /* FilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTests.swift; sourceTree = "<group>"; };
+		2D02433721C21B8400F92F0B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2D0427A921A9C89B00CF5153 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2D0427AB21A9CE9800CF5153 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 		2D43E68221AA5448009FB219 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		2D9C5BE421A8ED5400CF93FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2D02433721C21B8400F92F0B /* SearchViewController.swift */,
 				2D02433121C1A84400F92F0B /* FilterViewCell.swift */,
 				2D02433321C1A85F00F92F0B /* FilterViewController.swift */,
 				2DF5F0AF21C0D1340091F934 /* FamilyViewController.swift */,
@@ -359,6 +362,7 @@
 				2D5DFECB21BC759500A563CA /* SubSettingCell.swift in Sources */,
 				2D5F87AD21B8F704003AE1E8 /* EventListingController.swift in Sources */,
 				2DF5F0B021C0D1340091F934 /* FamilyViewController.swift in Sources */,
+				2D02433821C21B8400F92F0B /* SearchViewController.swift in Sources */,
 				2D5F87A921B8DF1E003AE1E8 /* PersonDetailController.swift in Sources */,
 				2D43E68521AA545A009FB219 /* Event.swift in Sources */,
 				2D0427AA21A9C89B00CF5153 /* MapViewController.swift in Sources */,

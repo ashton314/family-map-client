@@ -125,6 +125,11 @@ class MapViewController: UIViewController {
                 dest.store = store
             }
         }
+        else if segue.destination.isKind(of: SearchViewController.self) {
+            if let dest = segue.destination as? SearchViewController {
+                dest.store = store
+            }
+        }
     }
 
     func drawLine(mapView: MKMapView, coordinates: [CLLocationCoordinate2D], title: String? = nil, subtitle: String? = nil) {
