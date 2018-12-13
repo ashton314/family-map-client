@@ -246,14 +246,9 @@ extension MapViewController: MKMapViewDelegate {
             view.rightCalloutAccessoryView = detailButton
         }
 
-//        let mapsButton = UIButton(frame: CGRect(origin: CGPoint.zero,
-//                                                size: CGSize(width: 30, height: 30)))
-
         let person = store?.people[annotation.personID]
         view.leftCalloutAccessoryView = UIImageView(image: UIImage(named: person?.gender == "m" ? "male_outline" : "female_outline"))
 
-//        mapsButton.setBackgroundImage(UIImage(named: person?.gender == "m" ? "male_outline" : "female_outline"), for: UIControl.State())
-//        view.rightCalloutAccessoryView = mapsButton
         view.markerTintColor = annotation.markerTintColor
         return view
     }
