@@ -131,8 +131,30 @@ class SettingsController: UITableViewController {
     }
 
     @IBAction func resyncData(_ sender: Any) {
+        guard let store = store else { return }
+        let (ok, message) = store.refreshPeople()
+        if !ok {
+            print("Problem updating list of people: \(message)")
+            doAlert("Error", message: "Problem fetching people: \(message)")
+        } else { print("refreshing people seems alright") }
+        let (ok2, message2) = store.refreshEvents() {
+            (ok, resp) in
+            if ok {
+                print("everything good here")
+                self.performSegue(withIdentifier: "unwindToMap", sender: nil)
+            }
+            else {
+                print(resp)
+                self.doAlert("Error", message: "Problem fetching events: \(resp)")
+            }
+        }
+        if !ok2 {
+            doAlert("Error", message: "Problem fetching events: \(message2)")
+        }
     }
     @IBAction func logOut(_ sender: Any) {
+        store = nil
+        self.performSegue(withIdentifier: "unwindToMap", sender: nil)
     }
     
     @IBAction func toggleLifeLine(_ sender: UISwitch) {
@@ -146,5 +168,18 @@ class SettingsController: UITableViewController {
     @IBAction func toggleSpouseLine(_ sender: UISwitch) {
         guard let store = store else { return }
         store.showSpouseLine = sender.isOn
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination.isKind(of: MapViewController.self) {
+            let dest = segue.destination as! MapViewController
+            dest.store = store
+        }
+    }
+
+    func doAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true, completion: nil)
     }
 }

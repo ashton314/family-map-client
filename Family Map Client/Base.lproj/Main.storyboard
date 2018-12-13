@@ -205,7 +205,7 @@
                             <outlet property="delegate" destination="VhI-gb-0PA" id="EkF-u1-tYf"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="5zj-LX-rKn">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="5zj-LX-rKn">
                         <barButtonItem key="rightBarButtonItem" title="Map" id="ZPU-hz-qfo">
                             <connections>
                                 <segue destination="Alx-cJ-01n" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="IvG-Es-Sa3"/>
@@ -773,7 +773,7 @@
                                 <navigationItem title="Settings" id="w1T-ne-sBQ">
                                     <barButtonItem key="rightBarButtonItem" title="Done" id="b6p-cm-ghl">
                                         <connections>
-                                            <segue destination="MVU-Ql-lM6" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="ihv-Pj-7lZ"/>
+                                            <segue destination="MVU-Ql-lM6" kind="unwind" identifier="unwindToMap" unwindAction="unwindToMapWithUnwindSeuge:" id="ihv-Pj-7lZ"/>
                                         </connections>
                                     </barButtonItem>
                                 </navigationItem>
@@ -1031,6 +1031,7 @@
                         <outlet property="spouseLineColor" destination="vBZ-dm-cor" id="w7T-eM-4Do"/>
                         <outlet property="spouseLineColorPicker" destination="oxc-nO-8QW" id="BDo-Bg-CdJ"/>
                         <outlet property="spouseLineSwitch" destination="8RZ-Fp-Gkl" id="2cH-Ur-ZkU"/>
+                        <segue destination="MVU-Ql-lM6" kind="unwind" unwindAction="unwindToMapWithUnwindSeuge:" id="5XD-G3-OcI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yOz-q3-LOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1191,6 +1192,6 @@
         <image name="custom_settings" width="45" height="46"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="DXY-nV-MbW"/>
+        <segue reference="KuN-Br-tC5"/>
     </inferredMetricsTieBreakers>
 </document>
