@@ -13,6 +13,7 @@ class MapViewController: UIViewController {
 
     var store: MemoryStore?
     var lastLines: [MKOverlay] = []
+    var allAnnotations: [MKAnnotation] = []
 
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var mainMap: MKMapView!
@@ -64,8 +65,8 @@ class MapViewController: UIViewController {
     func updateMap() {
         guard let store = store else {return}
 
-        print("Setting map type to \(store.mapType)")
         mainMap.mapType = store.mapType
+        updateEvents()
     }
     
     func updateEvents() {
@@ -73,8 +74,14 @@ class MapViewController: UIViewController {
 //            centerMapOnLocation(location: initialLocation)
         guard let store = store else {return}
 
+        print("clearing all annotations")
+        mainMap.removeAnnotations(allAnnotations)
+
+        print("number of events: \(store.events.count)")
+
         for (_, event) in store.events {
             let marker = EventMarker.fromEvent(event, store: store)
+            allAnnotations += [marker]
             mainMap.addAnnotation(marker)
         }
     }
@@ -92,7 +99,6 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func unwindToMap(unwindSeuge: UIStoryboardSegue) {
-        print("Unwound to map")
     }
 
     @IBAction func showEventDetail(sender: UIButton, forEvent event: UIEvent) {

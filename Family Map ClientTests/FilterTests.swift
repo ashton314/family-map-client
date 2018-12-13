@@ -63,11 +63,22 @@ class FilterTests: XCTestCase {
 
     func testEventFiltering() {
         store.showMaternal = false
-
         XCTAssertNil(store.events["event_4"])
         XCTAssertNotNil(store.events["event_5"])
-
         store.showMaternal = true
+        XCTAssertNotNil(store.events["event_4"])
+        XCTAssertNotNil(store.events["event_5"])
+
+        store.showMale = false
+        XCTAssertNotNil(store.events["event_4"])
+        XCTAssertNil(store.events["event_5"])
+        store.showFemale = false
+        XCTAssertNil(store.events["event_4"])
+        XCTAssertNil(store.events["event_5"])
+        store.showMale = true
+        XCTAssertNil(store.events["event_4"])
+        XCTAssertNotNil(store.events["event_5"])
+        store.showFemale = true
         XCTAssertNotNil(store.events["event_4"])
         XCTAssertNotNil(store.events["event_5"])
 

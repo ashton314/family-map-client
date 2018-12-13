@@ -57,10 +57,10 @@ class FilterViewController: UITableViewController {
                 title = "Show Paternal Side"
             case 2:
                 (getter, setter) = ({ store.showFemale }, { store.showFemale = $0 })
-                title = "Show Male"
+                title = "Show Female"
             case 3:
                 (getter, setter) = ({ store.showMale }, { store.showMale = $0 })
-                title = "Show Female"
+                title = "Show Male"
             default:
                 break
             }
