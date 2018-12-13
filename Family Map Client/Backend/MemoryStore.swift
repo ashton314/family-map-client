@@ -137,7 +137,7 @@ class MemoryStore {
               if isPaternal(event) && !showPaternal { return false }
               if isMale(event) && !showMale { return false }
               if isFemale(event) && !showFemale { return false }
-              return true
+              return showEventTypes[event.eventType] ?? true
           })
     }
 
@@ -169,7 +169,7 @@ class MemoryStore {
     func eventTypes() -> [String] {
         var types = Set<String>()
 
-        for (_, event) in self.events {
+        for (_, event) in self._rawEvents {
             types.insert(event.eventType)
         }
 
