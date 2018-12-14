@@ -13,7 +13,8 @@ class SearchViewController: UITableViewController {
     var store: MemoryStore?
     
     let searchController = UISearchController(searchResultsController: nil)
-    var search_text: String = ""
+    private var search_text: String = ""
+    func setSearchText(text: String) { search_text = text }
 
     // computed properties: they *look* like data members, but really
     // are methods that get called each time you try to access the

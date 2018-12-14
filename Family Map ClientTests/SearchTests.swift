@@ -1,17 +1,20 @@
 //
-//  PersonModelTest.swift
+//  SearchTests.swift
 //  Family Map ClientTests
 //
-//  Created by Ashton Wiersdorf on 2018-12-07.
+//  Created by Ashton Wiersdorf on 2018-12-13.
 //  Copyright © 2018 Ashton Wiersdorf. All rights reserved.
 //
 
 import XCTest
 @testable import Family_Map_Client
 
-class PersonModelTest: XCTestCase {
+class SearchTests: XCTestCase {
 
-    var store = MemoryStore(people: ["me": Person(firstName: "Foo", lastName: "Bar", personID: "foo", descendant: "me", mother: "foo_mom", father: "foo_dad", spouse: "", gender: "m"),
+    var store: MemoryStore?
+
+    override func setUp() {
+        store = MemoryStore(people: ["me": Person(firstName: "Foo", lastName: "Bar", personID: "foo", descendant: "me", mother: "foo_mom", father: "foo_dad", spouse: "", gender: "m"),
                                      "foo_mom": Person(firstName: "Foo_mom", lastName: "Bar", personID: "foo_mom", descendant: "me", mother: "foo_mom_mom",
                                                        father: "foo_mom_dad", spouse: "foo_dad", gender: "f"),
                                      "foo_dad": Person(firstName: "Foo_dad", lastName: "Bar", personID: "foo_dad", descendant: "me", mother: "foo_dad_mom",
@@ -40,47 +43,65 @@ class PersonModelTest: XCTestCase {
                                                       person_id: "foo_dad", owner_id: "me"),
                                      ],
                             authToken: "authytoken", rootPerson: "me", host: "127.0.0.1", port: "8080")
-
-    override func setUp() {
-
     }
 
-    override func tearDown() {
+    // These methods search finding everyone, then one, three, and finally zero people
+    func testSearchNothing() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "")
+        XCTAssertEqual(svc.filtered_people.count, 7)
+        XCTAssertEqual(svc.filtered_events.count, 7)
+    }
+    func testSearchToOnePerson() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "foo_mom_mom")
+        XCTAssertEqual(svc.filtered_people.count, 1)
+        XCTAssertEqual(svc.filtered_events.count, 0)
+        XCTAssertEqual(svc.filtered_people.values.sorted(by: { $0.personID < $1.personID })[0], store?.people["foo_mom_mom"])
+    }
+    func testSearchToThreePeople() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "foo_mom")
+        XCTAssertEqual(svc.filtered_people.count, 3)
+        XCTAssertEqual(svc.filtered_events.count, 0)
+        XCTAssertEqual(svc.filtered_people.values.sorted(by: { $0.personID < $1.personID }),
+                       ["foo_mom", "foo_mom_dad", "foo_mom_mom"].map({ (key: String) -> Person in (store?.people[key])! } ))
+    }
+    func testSearchToNobody() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "trogdor")
+        XCTAssertEqual(svc.filtered_people.count, 0)
+        XCTAssertEqual(svc.filtered_events.count, 0)
     }
 
-    // check filtering by side
-    func testTreeSides() {
-        XCTAssertEqual(store.filterBySide(rootID: "me", side: .maternal), ["foo_mom","foo_mom_dad","foo_mom_mom"].map({ (i: String) -> Person in
-            return store.people[i]!
-        }))
-        XCTAssertEqual(store.filterBySide(rootID: "me", side: .paternal), ["foo_dad","foo_dad_dad","foo_dad_mom"].map({ (i: String) -> Person in
-            return store.people[i]!
-        }))
-    }
 
-    // test that the list of all types of events is correct
-    func testEventTypeExtraction() {
-        XCTAssertEqual(store.eventTypes(), ["anathema", "birth", "death"])
+    // these methods test finding one, three, and zero events
+    func testSearchToOneEvent() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "anathema")
+        XCTAssertEqual(svc.filtered_people.count, 0)
+        XCTAssertEqual(svc.filtered_events.count, 1)
+        XCTAssertEqual(svc.filtered_events.values.sorted(by: { $0.eventID < $1.eventID })[0], store?.events["event_6"])
     }
-
-    // test getting a child works
-    func testGetChild() {
-        XCTAssertEqual(store.getChildren(personID: "foo_dad"), [store.people["me"]])
+    func testSearchToThreeEvents() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "birth")
+        XCTAssertEqual(svc.filtered_people.count, 0)
+        XCTAssertEqual(svc.filtered_events.count, 3)
+        XCTAssertEqual(svc.filtered_events.values.sorted(by: { $0.eventID < $1.eventID }),
+                       ["event_1", "event_3", "event_5"].map({ (key: String) -> Event in (store?.events[key])! } ))
     }
-
-    func testPersonEventsRightOrder() {
-        XCTAssertEqual(store.eventsForPerson("me"), ["event_1", "event_2"].map({ store.events[$0] }))
-    }
-
-    // check filtering by event type
-    func testEventTypeFiltering() {
-        XCTAssertEqual(Set<Event>(store.getEventsWithTypes(["death", "birth"])),
-                       Set(["event_1", "event_2", "event_3", "event_4", "event_5", "event_7"].map({ (i: String) -> Event in return store.events[i]! })))
-        XCTAssertEqual(store.getEventsWithTypes(["anathema"]),
-                       ["event_6"].map({ (i: String) -> Event in return store.events[i]! }))
-    }
-
-    func testEventRetreval() {
-        XCTAssertEqual(store.eventsForPerson("foo_dad"), ["event_5", "event_6", "event_7"].map({ store.events[$0]! }))
+    func testSearchToNoEvents() {
+        let svc = SearchViewController()
+        svc.store = store
+        svc.setSearchText(text: "burninate")
+        XCTAssertEqual(svc.filtered_people.count, 0)
+        XCTAssertEqual(svc.filtered_events.count, 0)
     }
 }
