@@ -68,31 +68,31 @@ class SettingsController: UITableViewController {
 
         guard let store = store else { return }
 
-        lifeLineColor.text = ColorPicker.humanizeColor(store.lifeLineColor)
-        familyTreeColor.text = ColorPicker.humanizeColor(store.familyLineColor)
-        spouseLineColor.text = ColorPicker.humanizeColor(store.spouseLineColor)
+        lifeLineColor.text = ColorPicker.humanizeColor(store.getLifeLineColor())
+        familyTreeColor.text = ColorPicker.humanizeColor(store.getFamilyLineColor())
+        spouseLineColor.text = ColorPicker.humanizeColor(store.getSpouseLineColor())
 
-        lifeLineSwitch.isOn = store.showLifeLine
-        familyTreeSwitch.isOn = store.showFamilyLine
-        spouseLineSwitch.isOn = store.showSpouseLine
+        lifeLineSwitch.isOn = store.getShowLifeLine()
+        familyTreeSwitch.isOn = store.getShowFamilyLine()
+        spouseLineSwitch.isOn = store.getShowSpouseLine()
 
         let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
-        mapTypeRadio.selectedSegmentIndex = mapTypes.firstIndex(of: store.mapType)!
+        mapTypeRadio.selectedSegmentIndex = mapTypes.firstIndex(of: store.getMapType())!
 
         let lifeLineColorPicker = self.lifeLineColorPicker as! ColorPicker
         lifeLineColorPicker.delegate = lifeLineColorPicker
         lifeLineColorPicker.dataSource = lifeLineColorPicker
-        lifeLineColorPicker.setSelectedCallback({ (name, color) in self.lifeLineColor.text = name as? String; self.store?.lifeLineColor = color as! UIColor })
+        lifeLineColorPicker.setSelectedCallback({ (name, color) in self.lifeLineColor.text = name as? String; self.store?.setLifeLineColor(color as! UIColor) })
 
         let familyLineColorPicker = self.familyLineColorPicker as! ColorPicker
         familyLineColorPicker.delegate = familyLineColorPicker
         familyLineColorPicker.dataSource = familyLineColorPicker
-        familyLineColorPicker.setSelectedCallback({ (name, color) in self.familyTreeColor.text = name as? String; self.store?.familyLineColor = color as! UIColor })
+        familyLineColorPicker.setSelectedCallback({ (name, color) in self.familyTreeColor.text = name as? String; self.store?.setFamilyLineColor(color as! UIColor) })
 
         let spouseLineColorPicker = self.spouseLineColorPicker as! ColorPicker
         spouseLineColorPicker.delegate = spouseLineColorPicker
         spouseLineColorPicker.dataSource = spouseLineColorPicker
-        spouseLineColorPicker.setSelectedCallback({ (name, color) in self.spouseLineColor.text = name as? String; self.store?.spouseLineColor = color as! UIColor })
+        spouseLineColorPicker.setSelectedCallback({ (name, color) in self.spouseLineColor.text = name as? String; self.store?.setSpouseLineColor(color as! UIColor) })
     }
 
     // These methods make it possible to collapse the picker wheels when not in use
@@ -127,7 +127,7 @@ class SettingsController: UITableViewController {
     @IBAction func mapTypeChanged(_ sender: UISegmentedControl) {
         guard let store = store else { return }
         let mapTypes: [MKMapType] = [.standard, .satellite, .hybrid]
-        store.mapType = mapTypes[sender.selectedSegmentIndex]
+        store.setMapType(mapTypes[sender.selectedSegmentIndex])
     }
 
     @IBAction func resyncData(_ sender: Any) {
@@ -159,15 +159,15 @@ class SettingsController: UITableViewController {
     
     @IBAction func toggleLifeLine(_ sender: UISwitch) {
         guard let store = store else { return }
-        store.showLifeLine = sender.isOn
+        store.setShowLifeLine(sender.isOn)
     }
     @IBAction func toggleFamilyLine(_ sender: UISwitch) {
         guard let store = store else { return }
-        store.showFamilyLine = sender.isOn
+        store.setShowFamilyLine(sender.isOn)
     }
     @IBAction func toggleSpouseLine(_ sender: UISwitch) {
         guard let store = store else { return }
-        store.showSpouseLine = sender.isOn
+        store.setShowSpouseLine(sender.isOn)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

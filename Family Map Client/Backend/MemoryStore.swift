@@ -20,36 +20,76 @@ class MemoryStore {
     private var _rawEvents: [String:Event]
     var events: [String:Event] { return filterEvents(_rawEvents) }
 
-    var eventsByPerson: [String:[Event]]
-    var authToken: String
-    var rootPersonID: String
-    var host: String
-    var port: String
+    private var _rawEventsByPerson: [String:[Event]]
+    var eventsByPerson: [String:[Event]] { return _rawEventsByPerson }
+    private var _rawAuthToken: String
+    var authToken: String { return _rawAuthToken }
+    private var _rawRootPersonID: String
+    var rootPersonID: String { return _rawRootPersonID }
+    private var _rawHost: String
+    var host: String { return _rawHost }
+    private var _rawPort: String
+    var port: String { return _rawPort }
     
     // Settings
-    var mapType: MKMapType = .standard
-    var lifeLineColor: UIColor = .blue
-    var familyLineColor: UIColor = .lightGray
-    var spouseLineColor: UIColor = .green
-    var showLifeLine = true
-    var showFamilyLine = true
-    var showSpouseLine = true
+    private var mapType: MKMapType = .standard
+    func getMapType() -> MKMapType { return mapType }
+    func setMapType(_ val: MKMapType) { mapType = val }
+
+    private var lifeLineColor: UIColor = .blue
+    func getLifeLineColor() -> UIColor { return lifeLineColor }
+    func setLifeLineColor(_ val: UIColor) { lifeLineColor = val }
+
+    private var familyLineColor: UIColor = .lightGray
+    func getFamilyLineColor() -> UIColor { return familyLineColor }
+    func setFamilyLineColor(_ val: UIColor) { familyLineColor = val }
+
+    private var spouseLineColor: UIColor = .green
+    func getSpouseLineColor() -> UIColor { return spouseLineColor }
+    func setSpouseLineColor(_ val: UIColor) { spouseLineColor = val }
+
+    private var showLifeLine: Bool = true
+    func getShowLifeLine() -> Bool { return showLifeLine }
+    func setShowLifeLine(_ val: Bool) { showLifeLine = val }
+
+    private var showFamilyLine: Bool = true
+    func getShowFamilyLine() -> Bool { return showFamilyLine }
+    func setShowFamilyLine(_ val: Bool) { showFamilyLine = val }
+
+    private var showSpouseLine: Bool = true
+    func getShowSpouseLine() -> Bool { return showSpouseLine }
+    func setShowSpouseLine(_ val: Bool) { showSpouseLine = val }
+
 
     // Filters
-    var showMaternal = true
-    var showPaternal = true
-    var showMale = true
-    var showFemale = true
-    var showEventTypes: [String:Bool] = [:]
+    private var showMaternal: Bool = true
+    func getShowMaternal() -> Bool { return showMaternal }
+    func setShowMaternal(_ val: Bool) { showMaternal = val }
+
+    private var showPaternal: Bool = true
+    func getShowPaternal() -> Bool { return showPaternal }
+    func setShowPaternal(_ val: Bool) { showPaternal = val }
+
+    private var showMale: Bool = true
+    func getShowMale() -> Bool { return showMale }
+    func setShowMale(_ val: Bool) { showMale = val }
+
+    private var showFemale: Bool = true
+    func getShowFemale() -> Bool { return showFemale }
+    func setShowFemale(_ val: Bool) { showFemale = val }
+
+    private var showEventTypes: [String:Bool] = [:]
+    func getShowEventTypes(_ key: String) -> Bool { return showEventTypes[key] ?? false }
+    func setShowEventTypes(_ key: String, _ val: Bool) { showEventTypes[key] = val }
 
     init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
         self._rawPeople = people
         self._rawEvents = events
-        self.authToken = authToken
-        self.rootPersonID = rootPerson
-        self.host = host
-        self.port = port
-        self.eventsByPerson = MemoryStore.transposeEventIndex(_rawEvents)
+        self._rawAuthToken = authToken
+        self._rawRootPersonID = rootPerson
+        self._rawHost = host
+        self._rawPort = port
+        self._rawEventsByPerson = MemoryStore.transposeEventIndex(_rawEvents)
     }
 
     func refreshPeople(callback: @escaping (Bool, Any) -> Void = {_,_ in } ) -> (Bool, String) {
@@ -88,7 +128,7 @@ class MemoryStore {
             }
             if let events = resp as? [Event] {
                 self._rawEvents = Dictionary(uniqueKeysWithValues: events.map { ($0.eventID, $0) })
-                self.eventsByPerson = MemoryStore.transposeEventIndex(self._rawEvents)
+                self._rawEventsByPerson = MemoryStore.transposeEventIndex(self._rawEvents)
                 print("got events")
 
                 self.showEventTypes = Dictionary(uniqueKeysWithValues: self.eventTypes().map({ ($0, true) }))
@@ -107,6 +147,10 @@ class MemoryStore {
         else {
             return (true, message)
         }
+    }
+
+    func nukeAuthToken() {
+        _rawAuthToken = ""
     }
 
     func getFirstEvent(_ personID: String) -> Event? {

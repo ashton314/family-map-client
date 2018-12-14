@@ -9,6 +9,8 @@
 import Foundation
 
 class Event: Codable, Equatable, CustomStringConvertible, Hashable {
+
+    // All these are constants
     let eventID: String
     let eventType: String
 
@@ -17,7 +19,6 @@ class Event: Codable, Equatable, CustomStringConvertible, Hashable {
 
     let country: String
     let city: String
-
     let year: String
 
     let personID: String

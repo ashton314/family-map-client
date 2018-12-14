@@ -26,58 +26,54 @@ class MapViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print("map coming online...")
-        if let store = store {
-            print("we have a data store")
+        if let store = store {  // TODO: use a `guard` clause
+
             self.updateMap()
+
             if store.people.count == 0 {
+
                 let (ok, message) = store.refreshPeople()
+
                 if !ok {
                     print("Problem updating list of people: \(message)")
                     doAlert("Error", message: "Problem fetching people: \(message)")
-                } else { print("refreshing people seems alright") }
+                }
                 
+                // refreshEvents() takes a callback that gets called
+                // from the main thread once the call has finished
+                // executing
                 let (ok2, message2) = store.refreshEvents() {
                     (ok, resp) in
-                    guard ok else {return}
-                    
-                    self.updateEvents()
+                    if ok { self.updateEvents() }
                 }
                 if !ok2 {
                     print("Problem updating list of events: \(message2)")
                     doAlert("Error", message: "Problem fetching events: \(message2)")
-                } else { print("refreshing events seems alright") }
+                }
             }
         }
         else {
-            print("we have no data store, need to go to auth")
+            // no data store; go to login page
             self.performSegue(withIdentifier: "doAuth", sender: nil)
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        //
-    }
+
     @IBAction func doLogOut(_ sender: Any) {
-        store?.authToken = ""
+        store?.nukeAuthToken()
         self.performSegue(withIdentifier: "doAuth", sender: nil)
     }
 
     func updateMap() {
         guard let store = store else {return}
 
-        mainMap.mapType = store.mapType
+        mainMap.mapType = store.getMapType()
         updateEvents()
     }
     
     func updateEvents() {
-//            let initialLocation = CLLocation(latitude: 21.282778, longitude: -157.829444)
-//            centerMapOnLocation(location: initialLocation)
         guard let store = store else {return}
 
-        print("clearing all annotations")
         mainMap.removeAnnotations(allAnnotations)
-
-        print("number of events: \(store.events.count)")
 
         for (_, event) in store.events {
             let marker = EventMarker.fromEvent(event, store: store)
@@ -142,7 +138,7 @@ class MapViewController: UIViewController {
     }
     func drawLifeLines(for personID: String, mapView: MKMapView) {
         guard let store = store else { return }
-        if store.showLifeLine {
+        if store.getShowLifeLine() {
             let events: [Event] = store.eventsForPerson(personID)
             let coordinates = events.map({ CLLocation(latitude: $0.latitude, longitude: $0.longitude).coordinate })
             drawLine(mapView: mapView, coordinates: coordinates, title: "lifeLine")
@@ -150,7 +146,7 @@ class MapViewController: UIViewController {
     }
     func drawFamilyLines(for personID: String, mapView: MKMapView, generation: Int) {
         guard let store = store else { return }
-        guard store.showFamilyLine else { return }
+        guard store.getShowFamilyLine() else { return }
 
         guard let parents = store.getParents(fromPerson: personID) else { return }
         let (father, mother) = parents
@@ -172,7 +168,7 @@ class MapViewController: UIViewController {
     }
     func drawSpouseLines(for personID: String, mapView: MKMapView) {
         guard let store = store else { return }
-        if store.showSpouseLine {
+        if store.getShowSpouseLine() {
             if let spouseID = store.people[personID]?.spouse,
                let my_birth: Event = store.eventsForPerson(personID)[0],
                let spouse_birth: Event = store.eventsForPerson(spouseID)[0] {
@@ -199,10 +195,10 @@ extension MapViewController: MKMapViewDelegate {
         renderer.alpha = 0.5
 
         switch polyline.title {
-        case "lifeLine": renderer.strokeColor = store.lifeLineColor
-        case "spouseLine": renderer.strokeColor = store.spouseLineColor
+        case "lifeLine": renderer.strokeColor = store.getLifeLineColor()
+        case "spouseLine": renderer.strokeColor = store.getSpouseLineColor()
         case "familyLine":
-            renderer.strokeColor = store.familyLineColor
+            renderer.strokeColor = store.getFamilyLineColor()
             let power = Int(polyline.subtitle ?? "0") ?? 0
             let denominator = Double(power == 0 ? 1 : 2 << power)
             renderer.lineWidth = CGFloat(3.0 * (1.0 / denominator))
@@ -236,7 +232,9 @@ extension MapViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let annotation = annotation as? EventMarker else { return nil }
+        guard let annotation = annotation as? EventMarker,
+              let store = store else { return nil }
+
         let identifier = "marker-\(annotation.eventID)"
         var view: MKMarkerAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
@@ -244,21 +242,20 @@ extension MapViewController: MKMapViewDelegate {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier, eventModel: store!.events[annotation.eventID]!)
+            view = EventMarkerDetail(annotation: annotation, reuseIdentifier: identifier, eventModel: store.events[annotation.eventID]!)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             let detailButton = UIButton(type: .detailDisclosure)
             view.rightCalloutAccessoryView = detailButton
         }
 
-        let person = store?.people[annotation.personID]
-        view.leftCalloutAccessoryView = UIImageView(image: UIImage(named: person?.gender == "m" ? "male_outline" : "female_outline"))
+        let person = store.people[annotation.personID]!
+        view.leftCalloutAccessoryView = UIImageView(image: UIImage(named: person.gender == "m" ? "male_outline" : "female_outline"))
 
         view.markerTintColor = annotation.markerTintColor
         return view
     }
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        print("tapped!")
         let location = view.annotation as! EventMarker
         self.performSegue(withIdentifier: "showPerson", sender: location)
     }

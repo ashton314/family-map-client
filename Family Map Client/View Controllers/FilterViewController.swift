@@ -46,27 +46,29 @@ class FilterViewController: UITableViewController {
         var getter: () -> Bool = { false }  // noop
         var setter: (Bool) -> () = { _ in } // noop
 
+        // Set getter, setter to closures that get/set the appropriate
+        // value for each row in the TableView
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                (getter, setter) = ({ store.showMaternal }, { store.showMaternal = $0 })
+                (getter, setter) = ({ store.getShowMaternal() }, { store.setShowMaternal($0) })
                 title = "Show Maternal Side"
             case 1:
-                (getter, setter) = ({ store.showPaternal }, { store.showPaternal = $0 })
+                (getter, setter) = ({ store.getShowPaternal() }, { store.setShowPaternal($0) })
                 title = "Show Paternal Side"
             case 2:
-                (getter, setter) = ({ store.showFemale }, { store.showFemale = $0 })
+                (getter, setter) = ({ store.getShowFemale() }, { store.setShowFemale($0) })
                 title = "Show Female"
             case 3:
-                (getter, setter) = ({ store.showMale }, { store.showMale = $0 })
+                (getter, setter) = ({ store.getShowMale() }, { store.setShowMale($0) })
                 title = "Show Male"
             default:
                 break
             }
         case 1:
             let type = eventTypes[indexPath.row]
-            (getter, setter) = ({ store.showEventTypes[type] ?? false }, { store.showEventTypes[type] = $0 })
+            (getter, setter) = ({ store.getShowEventTypes(type) ?? false }, { store.setShowEventTypes(type, $0) })
             title = type
         default:
             break
@@ -80,9 +82,5 @@ class FilterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let titles = ["General Filters", "Event Filters"]
         return titles[section]
-    }
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     }
 }

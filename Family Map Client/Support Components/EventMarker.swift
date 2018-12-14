@@ -18,10 +18,12 @@ class EventMarker: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     let personID: String
     let eventID: String
-    var event: Event?
+
+    private var event: Event?
+    func getEvent() -> Event? { return event }
+    func setEvent(val: Event) { event = val }
     
     init(locationName: String, discipline: String, coordinate: CLLocationCoordinate2D, personID: String, eventID: String, store: MemoryStore) {
-//        self.title = title
         self.locationName = locationName
         self.discipline = discipline
         self.coordinate = coordinate

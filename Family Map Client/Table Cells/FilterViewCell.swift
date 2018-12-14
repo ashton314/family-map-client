@@ -13,7 +13,8 @@ class FilterViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var filterSwitch: UISwitch!
     
-
+    // methods (anonymous functions, really) that get/mutate the
+    // property for this filter toggle
     var setter: (Bool) -> () = { _ in }
     var getter: () -> Bool = { false }
 

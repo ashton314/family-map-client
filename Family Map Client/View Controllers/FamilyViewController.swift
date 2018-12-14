@@ -18,11 +18,7 @@ class FamilyViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         guard let person = person else { return }
-
-        print("Got person \(person)")
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -81,7 +77,6 @@ class FamilyViewController: UITableViewController {
             if let sender = sender as? FamilyMemberCell,
                 let basePerson = sender.basePerson {
 
-                print("Segueing into person detail view, sending person \(basePerson)")
                 let dest = segue.destination as! PersonDetailController
                 dest.title = basePerson.fullName()
                 dest.store = store

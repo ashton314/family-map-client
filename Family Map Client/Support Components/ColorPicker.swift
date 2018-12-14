@@ -9,8 +9,11 @@
 import UIKit
 
 class ColorPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
-    let colors: [String:UIColor] = ["Black": .black, "Blue": .blue, "Brown": .brown, "Cyan": .cyan, "Gray": .gray, "Dark Gray": .darkGray, "Light Gray": .lightGray, "Magenta": .magenta, "Orange": .orange, "Purple": .purple, "Red": .red, "White": .white, "Yellow": .yellow, "Green": .green];
-    var selectedCallback: ((Any, Any) -> Void)?
+    let colors: [String:UIColor] = ["Black": .black, "Blue": .blue, "Brown": .brown, "Cyan": .cyan,
+                                    "Gray": .gray, "Dark Gray": .darkGray, "Light Gray": .lightGray,
+                                    "Magenta": .magenta, "Orange": .orange, "Purple": .purple,
+                                    "Red": .red, "White": .white, "Yellow": .yellow, "Green": .green];
+    private var selectedCallback: ((Any, Any) -> Void)?
 
     func setSelectedCallback(_ callback: @escaping (Any, Any) -> Void) {
         self.selectedCallback = callback
@@ -28,7 +31,6 @@ class ColorPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let key = colors.keys.sorted()[row]
-        print("Selected \(colors[key])")
         if let callback = selectedCallback {
             callback(key, colors[key])
         }

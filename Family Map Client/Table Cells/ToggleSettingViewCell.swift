@@ -17,7 +17,6 @@ class ToggleSettingViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     @IBAction func switchToggled(_ sender: Any) {
@@ -29,11 +28,4 @@ class ToggleSettingViewCell: UITableViewCell {
         settingState.isOn = setting.state
         self.setting = setting
     }
-
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-
 }
