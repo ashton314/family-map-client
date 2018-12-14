@@ -65,7 +65,7 @@ class SearchViewController: UITableViewController {
             return cell
         }
         else {
-            fatalError("somehow got outside of section boundaries")
+            fatalError("somehow got outside of section boundaries") // should never happen; need to complete the if/else though
         }
     }
 
@@ -82,7 +82,7 @@ class SearchViewController: UITableViewController {
                 person = sender.basePerson!
             }
             else {
-                let sender = sender as! EventViewCell // meant to be fatal---the app should explode at this point if this fails
+                let sender = sender as! EventViewCell // meant to be fatal---the app should explode at this point if this fails; something has gone seriously wrong
                 person = store!.people[sender.myEvent!.personID]!
             }
 
@@ -94,7 +94,6 @@ class SearchViewController: UITableViewController {
 }
 
 extension SearchViewController: UISearchResultsUpdating {
-    // MARK: - UISearchResultsUpdating Delegate
     func updateSearchResults(for searchController: UISearchController) {
         search_text = searchController.searchBar.text!
         tableView.reloadData()

@@ -17,8 +17,6 @@ class EventListingController: UITableViewController {
         super.viewDidLoad()
     }
 
-    // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -36,7 +34,7 @@ class EventListingController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "eventCell", for: indexPath) as! EventViewCell
 
-        guard let events = events else { print("awe snap... no events"); return cell }
+        guard let events = events else { return cell }
 
         let sorted_events = events.sorted(by: { $0.year < $1.year })
         let event = sorted_events[indexPath.row]

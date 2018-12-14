@@ -180,10 +180,9 @@ class MapViewController: UIViewController {
     }
 }
 
-// Snarfed from https://www.raywenderlich.com/548-mapkit-tutorial-getting-started
+// Snarfed in part from https://www.raywenderlich.com/548-mapkit-tutorial-getting-started
 extension MapViewController: MKMapViewDelegate {
 
-    // MARK: MKMapViewDelegate
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let store = store else { return MKOverlayRenderer() }
         guard let polyline = overlay as? MKPolyline else {
@@ -208,7 +207,7 @@ extension MapViewController: MKMapViewDelegate {
         return renderer
     }
 
-    // Gets called when I click a button
+    // Gets called when I click a marker
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         if view.isKind(of: EventMarkerDetail.self) {
             let marker = view as! EventMarkerDetail
@@ -221,7 +220,7 @@ extension MapViewController: MKMapViewDelegate {
         }
     }
 
-    // this gets called when I click *off* a button
+    // this gets called when I click *off* a marker
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if view.isKind(of: EventMarkerDetail.self) {
             for line in lastLines {
