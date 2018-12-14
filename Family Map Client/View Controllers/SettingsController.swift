@@ -68,6 +68,7 @@ class SettingsController: UITableViewController {
 
         guard let store = store else { return }
 
+        // intilize widgets
         lifeLineColor.text = ColorPicker.humanizeColor(store.getLifeLineColor())
         familyTreeColor.text = ColorPicker.humanizeColor(store.getFamilyLineColor())
         spouseLineColor.text = ColorPicker.humanizeColor(store.getSpouseLineColor())
