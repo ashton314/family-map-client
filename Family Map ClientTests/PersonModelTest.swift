@@ -48,16 +48,22 @@ class PersonModelTest: XCTestCase {
     override func tearDown() {
     }
 
+    // check filtering by side
     func testTreeSides() {
         XCTAssertEqual(store.filterBySide(rootID: "me", side: .maternal), ["foo_mom","foo_mom_dad","foo_mom_mom"].map({ (i: String) -> Person in
             return store.people[i]!
         }))
+        XCTAssertEqual(store.filterBySide(rootID: "me", side: .paternal), ["foo_dad","foo_dad_dad","foo_dad_mom"].map({ (i: String) -> Person in
+            return store.people[i]!
+        }))
     }
 
+    // test that the list of all types of events is correct
     func testEventTypeExtraction() {
         XCTAssertEqual(store.eventTypes(), ["anathema", "birth", "death"])
     }
 
+    // check filtering by event type
     func testEventTypeFiltering() {
         XCTAssertEqual(Set<Event>(store.getEventsWithTypes(["death", "birth"])),
                        Set(["event_1", "event_2", "event_3", "event_4", "event_5", "event_7"].map({ (i: String) -> Event in return store.events[i]! })))
@@ -68,12 +74,4 @@ class PersonModelTest: XCTestCase {
     func testEventRetreval() {
         XCTAssertEqual(store.eventsForPerson("foo_dad"), ["event_5", "event_6", "event_7"].map({ store.events[$0]! }))
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

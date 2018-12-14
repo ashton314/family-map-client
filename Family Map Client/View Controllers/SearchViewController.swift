@@ -15,6 +15,9 @@ class SearchViewController: UITableViewController {
     let searchController = UISearchController(searchResultsController: nil)
     var search_text: String = ""
 
+    // computed properties: they *look* like data members, but really
+    // are methods that get called each time you try to access the
+    // member; these do the actual filtering
     var filtered_people: [String:Person] {
         return store?.people.filter({_, person in search_text == "" || person.fullName().lowercased().contains(search_text.lowercased()) }) ?? [:]
     }
