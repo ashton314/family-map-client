@@ -26,35 +26,34 @@ class MapViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        if let store = store {  // TODO: use a `guard` clause
-
-            self.updateMap()
-
-            if store.people.count == 0 {
-
-                let (ok, message) = store.refreshPeople()
-
-                if !ok {
-                    print("Problem updating list of people: \(message)")
-                    doAlert("Error", message: "Problem fetching people: \(message)")
-                }
-                
-                // refreshEvents() takes a callback that gets called
-                // from the main thread once the call has finished
-                // executing
-                let (ok2, message2) = store.refreshEvents() {
-                    (ok, resp) in
-                    if ok { self.updateEvents() }
-                }
-                if !ok2 {
-                    print("Problem updating list of events: \(message2)")
-                    doAlert("Error", message: "Problem fetching events: \(message2)")
-                }
-            }
-        }
-        else {
+        guard let store = store else {
             // no data store; go to login page
             self.performSegue(withIdentifier: "doAuth", sender: nil)
+            return
+        }
+
+        self.updateMap()
+
+        if store.people.count == 0 {
+
+            let (ok, message) = store.refreshPeople()
+
+            if !ok {
+                print("Problem updating list of people: \(message)")
+                doAlert("Error", message: "Problem fetching people: \(message)")
+            }
+            
+            // refreshEvents() takes a callback that gets called
+            // from the main thread once the call has finished
+            // executing
+            let (ok2, message2) = store.refreshEvents() {
+                (ok, resp) in
+                if ok { self.updateEvents() }
+            }
+            if !ok2 {
+                print("Problem updating list of events: \(message2)")
+                doAlert("Error", message: "Problem fetching events: \(message2)")
+            }
         }
     }
 
