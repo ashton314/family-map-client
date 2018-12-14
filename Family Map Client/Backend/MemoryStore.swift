@@ -14,10 +14,12 @@ enum TreeSide {
 }
 
 class MemoryStore {
-    var people: [String:Person]
-    private var _rawEvents: [String:Event]
+    private var _rawPeople: [String:Person]
+    var people: [String:Person] { return _rawPeople }
 
+    private var _rawEvents: [String:Event]
     var events: [String:Event] { return filterEvents(_rawEvents) }
+
     var eventsByPerson: [String:[Event]]
     var authToken: String
     var rootPersonID: String
@@ -41,7 +43,7 @@ class MemoryStore {
     var showEventTypes: [String:Bool] = [:]
 
     init(people: [String:Person], events:[String:Event], authToken: String, rootPerson: String, host: String, port: String) {
-        self.people = people
+        self._rawPeople = people
         self._rawEvents = events
         self.authToken = authToken
         self.rootPersonID = rootPerson
@@ -59,7 +61,7 @@ class MemoryStore {
                 return
             }
             if let people = resp as? [Person] {
-                self.people = Dictionary(uniqueKeysWithValues: people.map { ($0.personID, $0) })
+                self._rawPeople = Dictionary(uniqueKeysWithValues: people.map { ($0.personID, $0) })
                 print("ok fetching people")
                 callback(ok, resp)
             }
@@ -112,7 +114,7 @@ class MemoryStore {
         return events.count > 0 ? events[0] : nil
     }
     func getParents(fromPerson personID: String) -> (String, String)? {
-        if let me = self.people[personID] {
+        if let me = self._rawPeople[personID] {
             return (me.father, me.mother) // since when did you become me motha?
         }
         else {
@@ -122,7 +124,7 @@ class MemoryStore {
 
     func getChildren(personID: String) -> [Person] {
         var children: [Person] = []
-        for (_, person) in people {
+        for (_, person) in _rawPeople {
             if person.father == personID || person.mother == personID {
                 children.append(person)
             }
@@ -161,10 +163,10 @@ class MemoryStore {
         return dads_family.contains(where: { $0.personID == event.personID })
     }
     func isMale(_ event: Event) -> Bool {
-        return people[event.personID]!.gender == "m"
+        return _rawPeople[event.personID]!.gender == "m"
     }
     func isFemale(_ event: Event) -> Bool {
-        return people[event.personID]!.gender == "f"
+        return _rawPeople[event.personID]!.gender == "f"
     }
 
     // returns events where type is given in the array
@@ -189,7 +191,7 @@ class MemoryStore {
 
     // walks a person's lineage
     func walkTree(_ rootID: String) -> [Person] {
-        if let rootPerson = self.people[rootID] {
+        if let rootPerson = self._rawPeople[rootID] {
             return [rootPerson] + walkTree(rootPerson.father) + walkTree(rootPerson.mother)
         }
         else {
@@ -198,7 +200,7 @@ class MemoryStore {
     }
 
     func filterBySide(rootID: String, side: TreeSide) -> [Person] {
-        let rootPerson = self.people[rootID]
+        let rootPerson = self._rawPeople[rootID]
         let firstParent = side == .paternal ? rootPerson?.father : rootPerson?.mother
         return walkTree(firstParent!)
     }

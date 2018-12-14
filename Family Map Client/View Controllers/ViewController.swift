@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Login View Controller (this was the first one I made, and I didn't know to rename it.
 class ViewController: UIViewController {
 
     @IBOutlet weak var loginRegisterToggle: UISegmentedControl!
